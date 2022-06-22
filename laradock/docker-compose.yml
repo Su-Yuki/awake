@@ -1,0 +1,68 @@
+# ---[ version ]----------------------------------------------------------------
+version: '3.8'
+
+# ---[ volumes ]----------------------------------------------------------------
+volumes:
+  docker-volume:
+
+# ---[ Container Information  ]-------------------------------------------------
+services:
+  # Application container 
+  app:
+    container_name: app
+    build:          ./docker/php
+    volumes:
+      # - .:/var/www/html
+      - ${APP_CODE_PATH_HOST}:/var/www/html/
+
+  # nginx container 
+  nginx:
+    container_name: nginx
+    image:          nginx:alpine
+    depends_on:
+      - app
+    ports:
+      - ${NGINX_PORT}:80
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/var/www/html/
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+  # Database container
+  db:
+    container_name: db
+    image:          mysql:8.0
+    ports:
+      - ${MYSQL_PORT}:3306
+    environment:
+      MYSQL_DATABASE:      ${DB_DATABASE}
+      MYSQL_USER:          ${DB_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_PASSWORD:      ${DB_PASSWORD}
+      TZ:                  ${TIME_ZONE}
+    command:        
+      mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - docker-volume:/var/lib/mysql
+
+  # phpmyadmin container 
+  phpmyadmin:
+    container_name: phpmyadmin
+    image:          phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=${DB_USERNAME}
+      - PMA_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - db
+    ports:
+      - ${PHPMYADMIN_PORT}:80
+
+  # mailhog container 
+  mailhog:
+    container_name: mailhog
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+
