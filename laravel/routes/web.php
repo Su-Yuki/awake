@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('test', 'ThemaController');
+Route::get('test', 'HemeController@index');

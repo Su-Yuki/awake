@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\UseCase\Thema\ShowThemaListUseCase;
 use Illuminate\Http\Request;
 
 class ThemaController extends Controller
@@ -12,11 +11,9 @@ class ThemaController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function index(ShowThemaListUseCase $useCase)
+  public function index()
   {
-    // ユーザログイン機能を作るまでひとまず「１」を入れる
-    $user_id = 1;
-    return view('test', $useCase->handle($user_id));
+
   }
 
   /**
