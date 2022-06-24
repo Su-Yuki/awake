@@ -4,6 +4,12 @@ COPY php.ini /usr/local/etc/php/
 #Composer install
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Node.js install
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y nodejs \
+    npm
+
+
 RUN apt-get update \
   && apt-get -y install --no-install-recommends \
     locales \
