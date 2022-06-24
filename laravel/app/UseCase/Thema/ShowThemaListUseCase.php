@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Thema\UseCase;
+namespace App\UseCase\Thema;
 
 use App\Models\Thema;
 

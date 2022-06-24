@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Thema\UseCase\ShowThemaListUseCase;
+use App\UseCase\Thema\ShowThemaListUseCase;
 use Illuminate\Http\Request;
 
 class ThemaController extends Controller
