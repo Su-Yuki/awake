@@ -14,7 +14,7 @@ final class ShowThemaListUseCase
    *
    * @return array
    */
-  public function handle($user_id): array
+  public function __invoke($user_id): array
   {
     /**
     *

@@ -17,7 +17,7 @@ class HemeController extends Controller
   {
     // ユーザログイン機能を作るまでひとまず「１」を入れる
     $user_id = 1;
-    return view('test', $useCase->handle($user_id));
+    return view('test', $useCase($user_id));
   }
 
 }
