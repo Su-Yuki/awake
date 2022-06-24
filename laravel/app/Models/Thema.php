@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Thema extends Model
 {
     use HasFactory;
+
+    public function innerWord()
+    {
+        return $this->hasMany(InnerWord::class);
+    }
 }
