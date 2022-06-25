@@ -1,0 +1,7 @@
+{
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"typescript.format.insertSpaceBeforeAndAfterBinaryOperators": false,
+	"editor.detectIndentation": false,
+	"javascript.format.insertSpaceAfterSemicolonInForStatements": false
+}

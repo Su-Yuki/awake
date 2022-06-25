@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {
-//     return view('app');
+//   return view('app');
 // });
 
-// Route::get('test', 'HemeController@index');
+// Route::get('test', 'TopController@index');
 
 // Auth::routes();
 
@@ -25,5 +25,5 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('{any}', function () {
-    return view('layouts.app');
+  return view('app');
 })->where('any','.*');
