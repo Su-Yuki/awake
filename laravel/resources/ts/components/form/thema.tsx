@@ -48,7 +48,6 @@ export const CreateThemaForm: React.FC = () => {
         >
           <TextField
             className={classes.input_thema}
-            size='small'
             label='テーマを入力してください'
             variant='outlined'
           />
