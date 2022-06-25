@@ -41065,6 +41065,62 @@ var refType = prop_types__WEBPACK_IMPORTED_MODULE_0___default().oneOfType([(prop
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/MoreHoriz.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@mui/icons-material/MoreHoriz.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+}), 'MoreHoriz');
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@mui/icons-material/NavigateNext.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@mui/icons-material/NavigateNext.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+}), 'NavigateNext');
+
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/StarBorder.js":
 /*!********************************************************!*\
   !*** ./node_modules/@mui/icons-material/StarBorder.js ***!
@@ -48515,8 +48571,14 @@ var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/a
 var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
 
 var core_1 = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* material-ui icon */
+
 
 var StarBorder_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/StarBorder */ "./node_modules/@mui/icons-material/StarBorder.js"));
+
+var MoreHoriz_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/MoreHoriz */ "./node_modules/@mui/icons-material/MoreHoriz.js"));
+
+var NavigateNext_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/NavigateNext */ "./node_modules/@mui/icons-material/NavigateNext.js"));
 /* components */
 
 
@@ -48531,7 +48593,7 @@ var useStyles = (0, styles_1.makeStyles)(function (theme) {
       flex: 1,
       flexDirection: 'column',
       padding: 16,
-      backgroundColor: "#fff"
+      backgroundColor: '#fff'
     },
     // container_parts
     container_innner_top: {
@@ -48552,6 +48614,47 @@ var useStyles = (0, styles_1.makeStyles)(function (theme) {
     },
     thema_submit: {
       borderRadius: 50
+    },
+    list_item: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      padding: 8,
+      marginBottom: 8
+    },
+    list_item_right: {
+      display: 'flex',
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '64px',
+      border: '1px solid black',
+      borderRight: 0,
+      borderTopLeftRadius: 5,
+      borderBottomLeftRadius: 5
+    },
+    list_item_center: {
+      display: 'flex',
+      flex: 10,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 8,
+      height: '64px',
+      border: '1px solid black'
+    },
+    list_item_thema_name: {},
+    list_item_inner_prev: {
+      display: 'flex',
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '64px',
+      border: '1px solid black',
+      borderLeft: 0,
+      borderTopRightRadius: 5,
+      borderBottomRightRadius: 5
     }
   });
 }); // ---[ process ]---------------------------------------------------------------
@@ -48604,22 +48707,30 @@ function App() {
     }));
   };
 
-  console.log(themas);
   return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(thema_1.CreateThemaForm, null), react_1["default"].createElement(core_1.Box, {
     className: classes.container
   }, react_1["default"].createElement(core_1.Box, {
     className: classes.container_innner_top
   }, react_1["default"].createElement(core_1.Typography, null, "\u30C6\u30FC\u30DE\u4E00\u89A7"), react_1["default"].createElement(core_1.TextField, {
     className: classes.input_thema,
-    size: "small",
+    size: 'small',
     label: "\u691C\u7D22\u3059\u308B",
-    variant: "outlined"
+    variant: 'outlined'
   })), react_1["default"].createElement(core_1.Box, {
     className: classes.container_innner_middle
   }, "feature: A component of sorts will go in here."), react_1["default"].createElement(core_1.Box, null, react_1["default"].createElement(core_1.List, null, themas.map(function (thema, index) {
     return react_1["default"].createElement(core_1.ListItem, {
-      key: index.toString()
-    }, react_1["default"].createElement(StarBorder_1["default"], null), thema.thema, thema.inner_word_count);
+      key: index.toString(),
+      className: classes.list_item
+    }, react_1["default"].createElement(core_1.Box, {
+      className: classes.list_item_right
+    }, react_1["default"].createElement(StarBorder_1["default"], null)), react_1["default"].createElement(core_1.Box, {
+      className: classes.list_item_center
+    }, react_1["default"].createElement(core_1.Box, {
+      className: classes.list_item_thema_name
+    }, thema.thema), react_1["default"].createElement(MoreHoriz_1["default"], null)), react_1["default"].createElement(core_1.Box, {
+      className: classes.list_item_inner_prev
+    }, react_1["default"].createElement(NavigateNext_1["default"], null)));
   })))));
 }
 
@@ -48668,8 +48779,8 @@ var useStyles = (0, styles_1.makeStyles)(function (theme) {
       flex: 1,
       flexDirection: 'column',
       padding: 16,
-      backgroundColor: "#fff",
-      borderBottom: "1px solid black"
+      backgroundColor: '#fff',
+      borderBottom: '1px solid black'
     },
     container_innner_top: {},
     container_innner_bottom: {
@@ -48678,7 +48789,7 @@ var useStyles = (0, styles_1.makeStyles)(function (theme) {
       flexDirection: 'row-reverse'
     },
     input_thema: {
-      width: "100%"
+      width: '100%'
     },
     thema_submit: {
       borderRadius: 50
@@ -48690,19 +48801,19 @@ var CreateThemaForm = function CreateThemaForm() {
   var classes = useStyles();
   return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("form", {
     className: classes.container,
-    method: "POST"
+    method: 'POST'
   }, react_1["default"].createElement(core_1.TextField, {
     className: classes.input_thema,
-    size: "small",
+    size: 'small',
     label: "\u30C6\u30FC\u30DE\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044",
-    variant: "outlined"
+    variant: 'outlined'
   }), react_1["default"].createElement(core_1.Box, {
     className: classes.container_innner_bottom
   }, react_1["default"].createElement(core_1.Button, {
     className: classes.thema_submit,
-    type: "submit",
-    variant: "contained",
-    color: "primary"
+    type: 'submit',
+    variant: 'contained',
+    color: 'primary'
   }, "\u4F5C\u6210\u3059\u308B"))));
 };
 
