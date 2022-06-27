@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) =>
 		},
 		})
 );
+
 // ---[ types ]-----------------------------------------------------------------
 type PostThema = {
 	user_id: number | string;
@@ -79,7 +80,7 @@ export const CreateThemaForm: React.FC = () => {
 	}
 
 	// Thema input type onChange logic
-	const inputChange = (input: React.ChangeEvent<any>): void => {
+	const inputChangeForm = (input: React.ChangeEvent<any>): void => {
 		const key: keyof PostThema = input.target.name;
 		const value: typeof key    = input.target.value;
 		formData[key]              = value;
@@ -95,12 +96,12 @@ export const CreateThemaForm: React.FC = () => {
 
 	return (
 		<>
-      <form className={classes.container}>
+      <form className={classes.container} method='post'>
         <TextField
           className={classes.input_thema}
           label='テーマを入力してください'
           variant='outlined'
-          onChange={inputChange}
+          onChange={inputChangeForm}
           value={themaName}
           name='thema'
         />

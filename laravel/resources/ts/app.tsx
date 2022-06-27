@@ -12,15 +12,8 @@ import {
 } from '@material-ui/core';
 /* material-ui icon */
 
-
 /* components */
-import { CreateThemaForm } from './components/form/thema';
-import { ThemaList } from './components/ThemaList';
-
-// ---[ type ]------------------------------------------------------------------
-
-// ---[ style ]-----------------------------------------------------------------
-
+import { TopScreen } from './screens/TopScreen';
 
 // ---[ process ]---------------------------------------------------------------
 export default function App() {
@@ -29,12 +22,10 @@ export default function App() {
 
   return (
     <>
-      <CreateThemaForm />
-      <ThemaList />
+      <TopScreen />
     </>
   );
 }
-
 
 if (document.getElementById('app')) {
   ReactDOM.render(<App />, document.getElementById('app'));
