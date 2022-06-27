@@ -43,8 +43,6 @@ class ThemaController extends Controller
    */
   public function store(ThemaRequest $request, StoreThemaUseCase $useCase)
   {
-    // $thema->fill($request->all())->save();
-
     return $useCase
       ? response()->json($useCase($request), 201)
       : response()->json([], 500);

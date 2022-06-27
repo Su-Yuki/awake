@@ -27,8 +27,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     Route::post('thema/store', 'App\Http\Controllers\ThemaController@store');
 // });
 
-
+Route::post('thema/store', 'App\Http\Controllers\ThemaController@store');
 Route::group(['middleware' => 'api'], function(){
     Route::get('thema', 'App\Http\Controllers\ThemaController@index');
-    Route::post('thema/store', 'App\Http\Controllers\ThemaController@store');
+    // Route::post('thema/store', 'App\Http\Controllers\ThemaController@store');
 });

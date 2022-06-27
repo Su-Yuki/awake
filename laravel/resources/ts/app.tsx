@@ -24,8 +24,8 @@ import { ThemaList } from './components/ThemaList';
 
 // ---[ process ]---------------------------------------------------------------
 export default function App() {
-    // style
-    // const classes = useStyles();
+  // style
+  // const classes = useStyles();
 
   return (
     <>
