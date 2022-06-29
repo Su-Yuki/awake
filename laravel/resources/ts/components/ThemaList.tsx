@@ -1,10 +1,14 @@
 // ---[ import ]----------------------------------------------------------------
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 
 import axios from 'axios';
 
+/* contexts */
+import { ThemaContexts } from '../contexts/ThemaContext';
+
 /* ApiList */
+
 
 /* types */
 import { Thema } from '../type/Thema';
@@ -102,26 +106,40 @@ const useStyles = makeStyles((theme) =>
 
 // ---[ process ]---------------------------------------------------------------
 export const ThemaList: React.FC = () => {
-    // style
-    const classes = useStyles();
+  // style
+  const classes = useStyles();
 
-    // state
-    const [themas, setThemas] = useState<Thema[]>([]);
+  // state
+  const {themas, setThemas}       = useContext(ThemaContexts);
 
-    // effect
-    useEffect(() => {
-      fetchThemas()
-    }, [])
+  // effect
+  useEffect(() => {
+    fetchThemas()
+  }, [])
 
-    // get themaList
-    const fetchThemas = async () => {
-      try {
-        const themas = await axios.get('api/thema')
-        setThemas(themas.data.thema);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const ListItems = [...themas];
+
+  // get themaList
+  const fetchThemas = async () => {
+    try {
+      const themas = await axios.get('api/thema')
+      setThemas(themas.data.thema);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // update Thema
+	const onChangeThema = (input: React.ChangeEvent<any>, index: any): void => {
+    setThemas(
+      themas.map((obj, objIndex) => (
+        index === objIndex
+        ? {...obj, thema: input.target.value}
+        : obj
+      ))
+    )
+    // feature update api logic
+	}
 
   return (
     <>
@@ -153,9 +171,10 @@ export const ThemaList: React.FC = () => {
                       <Box className={classes.list_item_center}>
                         <TextField
                           className={classes.list_item_thema_input}
-                          id='outlined-basic'
-                          defaultValue={thema.thema}
+                          id='outlined'
                           InputProps={{ disableUnderline: true }}
+                          value={thema.thema}
+                          onChange={(e) => (onChangeThema(e, index))}
                          />
                         <MoreHorizIcon />
                       </Box>
