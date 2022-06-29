@@ -1,14 +1,18 @@
 // ---[ import ]----------------------------------------------------------------
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 
 import axios from 'axios';
 
+/* contexts */
+import { ThemaContexts } from '../../contexts/ThemaContext';
+
+/* types */
+import { Thema } from '../../type/Thema';
+
 /* material-ui */
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Box, Button,  TextField } from '@material-ui/core';
-
-// ---[ type ]------------------------------------------------------------------
 
 // ---[ style ]-----------------------------------------------------------------
 const useStyles = makeStyles((theme) =>
@@ -33,7 +37,7 @@ const useStyles = makeStyles((theme) =>
 		thema_submit: {
 			borderRadius:   50,
 		},
-		})
+  })
 );
 
 // ---[ types ]-----------------------------------------------------------------
@@ -47,15 +51,16 @@ export const CreateThemaForm: React.FC = () => {
 	const classes = useStyles();
 
 	// Set state
+  const {themas, setThemas} = useContext(ThemaContexts);
   // ユーザ認証をするまでひとまず１をセット
   const [user, setuser]           = useState<string>('1');
 	const [themaName, setThemaName] = useState<string>('');
 	const [formData, setFormData]   = useState<PostThema>({user_id: user, thema: ''});
 
 	const themaPost = async() => {
-		//
+		// フロントで空をひとまずreturnさせとく
 		if(themaName === ''){
-			return;
+			return null;
 		}
 
 		try {
@@ -66,9 +71,18 @@ export const CreateThemaForm: React.FC = () => {
           thema:   formData.thema
         })
         .then((res) => {
-          // const tempPosts = themaName
-          // // tempPosts.push();
-          setThemaName('')
+          const thema = {
+            id:               res.data.thema.id,
+            user_id:          Number(res.data.thema.user_id),
+            thema:            res.data.thema.thema,
+            inner_word_count: 0,
+            updated_at:       res.data.thema.updated_at,
+            created_at:       res.data.thema.created_at,
+          } as Thema;
+          setThemas([thema, ...themas]);
+
+          // 初期化
+          setThemaName('');
           setFormData({user_id: '', thema: ''});
         })
         .catch(error => {
@@ -85,6 +99,8 @@ export const CreateThemaForm: React.FC = () => {
 		const value: typeof key    = input.target.value;
 		formData[key]              = value;
 		let data                   = Object.assign({}, formData);
+
+    // setState
     setThemaName(value);
 		setFormData(data);
 	}

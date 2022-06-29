@@ -2,6 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
+/* contexts */
+import { ThemaContexts } from './contexts/ThemaContext'
+
+/* type */
+import { Thema } from './type/Thema';
+
+
 /* material-ui */
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import {
@@ -13,6 +20,7 @@ import {
 /* material-ui icon */
 
 /* components */
+
 import { TopScreen } from './screens/TopScreen';
 
 // ---[ process ]---------------------------------------------------------------
@@ -20,9 +28,13 @@ export default function App() {
   // style
   // const classes = useStyles();
 
+  const [themas, setThemas] = useState<Thema[]>([]);
+
   return (
     <>
-      <TopScreen />
+      <ThemaContexts.Provider value={{ themas, setThemas }}>
+        <TopScreen />
+      </ThemaContexts.Provider>
     </>
   );
 }

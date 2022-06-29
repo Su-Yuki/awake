@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 /* components */
-import { CreateThemaForm } from '../components/form/thema';
+import { CreateThemaForm } from '../components/form/Thema';
 import { ThemaList } from '../components/ThemaList';
 
 // ---[ styles ]----------------------------------------------------------------
