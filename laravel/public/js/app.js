@@ -48535,6 +48535,10 @@ var ThemaContext_1 = __webpack_require__(/*! ./contexts/ThemaContext */ "./resou
 
 /* components */
 
+/* screens */
+
+
+var WelcomeScreen_1 = __webpack_require__(/*! ./screens/WelcomeScreen */ "./resources/ts/screens/WelcomeScreen.tsx");
 
 var TopScreen_1 = __webpack_require__(/*! ./screens/TopScreen */ "./resources/ts/screens/TopScreen.tsx"); // ---[ process ]---------------------------------------------------------------
 
@@ -48542,6 +48546,8 @@ var TopScreen_1 = __webpack_require__(/*! ./screens/TopScreen */ "./resources/ts
 function App() {
   // style
   // const classes = useStyles();
+  var user = 'TestUser';
+
   var _ref = (0, react_1.useState)([]),
       _ref2 = _slicedToArray(_ref, 2),
       themas = _ref2[0],
@@ -48552,7 +48558,7 @@ function App() {
       themas: themas,
       setThemas: setThemas
     }
-  }, react_1["default"].createElement(TopScreen_1.TopScreen, null)));
+  }, !user ? react_1["default"].createElement(WelcomeScreen_1.WelcomeScreen, null) : react_1["default"].createElement(TopScreen_1.TopScreen, null)));
 }
 
 exports["default"] = App;
@@ -49208,6 +49214,39 @@ var TopScreen = function TopScreen() {
 };
 
 exports.TopScreen = TopScreen;
+
+/***/ }),
+
+/***/ "./resources/ts/screens/WelcomeScreen.tsx":
+/*!************************************************!*\
+  !*** ./resources/ts/screens/WelcomeScreen.tsx ***!
+  \************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.WelcomeScreen = void 0; // ---[ import ]----------------------------------------------------------------
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+/* components */
+// ---[ styles ]----------------------------------------------------------------
+
+
+var WelcomeScreen = function WelcomeScreen() {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", null, react_1["default"].createElement("p", null, "Wlellcome!! You must be logged in to use this app!")));
+};
+
+exports.WelcomeScreen = WelcomeScreen;
 
 /***/ }),
 

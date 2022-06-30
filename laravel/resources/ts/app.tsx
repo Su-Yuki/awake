@@ -20,20 +20,22 @@ import {
 /* material-ui icon */
 
 /* components */
-
+/* screens */
+import { WelcomeScreen } from './screens/WelcomeScreen';
 import { TopScreen } from './screens/TopScreen';
 
 // ---[ process ]---------------------------------------------------------------
 export default function App() {
   // style
   // const classes = useStyles();
+  const user = 'TestUser';
 
   const [themas, setThemas] = useState<Thema[]>([]);
 
   return (
     <>
       <ThemaContexts.Provider value={{ themas, setThemas }}>
-        <TopScreen />
+        {!user ? <WelcomeScreen /> : <TopScreen />}
       </ThemaContexts.Provider>
     </>
   );
