@@ -29,6 +29,7 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    // Cookieの送受信を許可
+    'supports_credentials' => true,
 
 ];

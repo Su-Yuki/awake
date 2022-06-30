@@ -24,7 +24,7 @@ class ThemaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "thema" => ['required', 'max:100']
         ];
     }
 }
