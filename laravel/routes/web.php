@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //   return view('app');
 // });
 
-// Route::get('test', 'TopController@index');
+// Route::resource('test', 'ThemaController');
 
 // Auth::routes();
 
