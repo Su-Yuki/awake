@@ -41065,6 +41065,90 @@ var refType = prop_types__WEBPACK_IMPORTED_MODULE_0___default().oneOfType([(prop
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/AccountCircle.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@mui/icons-material/AccountCircle.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+}), 'AccountCircle');
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@mui/icons-material/Email.js":
+/*!***************************************************!*\
+  !*** ./node_modules/@mui/icons-material/Email.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"
+}), 'Email');
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./node_modules/@mui/icons-material/Key.js":
+/*!*************************************************!*\
+  !*** ./node_modules/@mui/icons-material/Key.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M21 10h-8.35C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H13l2 2 2-2 2 2 4-4.04L21 10zM7 15c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"
+}), 'Key');
+
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/MoreHoriz.js":
 /*!*******************************************************!*\
   !*** ./node_modules/@mui/icons-material/MoreHoriz.js ***!
@@ -48531,23 +48615,35 @@ var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_m
 
 
 var ThemaContext_1 = __webpack_require__(/*! ./contexts/ThemaContext */ "./resources/ts/contexts/ThemaContext.ts");
-/* material-ui icon */
-
 /* routes */
 
 
-var NotLoginRouter_1 = __webpack_require__(/*! ./routes/NotLoginRouter */ "./resources/ts/routes/NotLoginRouter.tsx");
+var NotLoginRouter_1 = __webpack_require__(/*! ./roots/NotLoginRouter */ "./resources/ts/roots/NotLoginRouter.tsx");
 /* components */
 
 /* screens */
 
 
-var TopScreen_1 = __webpack_require__(/*! ./screens/TopScreen */ "./resources/ts/screens/TopScreen.tsx"); // ---[ process ]---------------------------------------------------------------
+var TopScreen_1 = __webpack_require__(/*! ./screens/TopScreen */ "./resources/ts/screens/TopScreen.tsx");
+/* material-ui */
 
+
+var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+
+var core_1 = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js"); // ---[ style ]-----------------------------------------------------------------
+
+
+var useStyles = (0, styles_1.makeStyles)(function (theme) {
+  return (0, styles_1.createStyles)({
+    container: {
+      height: "100vh"
+    }
+  });
+}); // ---[ process ]---------------------------------------------------------------
 
 function App() {
   // style
-  // const classes = useStyles();
+  var classes = useStyles();
   var user = null; // const user = 'TestUser';
 
   var _ref = (0, react_1.useState)([]),
@@ -48555,7 +48651,9 @@ function App() {
       themas = _ref2[0],
       setThemas = _ref2[1];
 
-  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(ThemaContext_1.ThemaContexts.Provider, {
+  return react_1["default"].createElement(core_1.Container, {
+    className: classes.container
+  }, react_1["default"].createElement(ThemaContext_1.ThemaContexts.Provider, {
     value: {
       themas: themas,
       setThemas: setThemas
@@ -49182,10 +49280,10 @@ exports.ThemaContexts = (0, react_1.createContext)({
 
 /***/ }),
 
-/***/ "./resources/ts/routes/NotLoginRouter.tsx":
-/*!************************************************!*\
-  !*** ./resources/ts/routes/NotLoginRouter.tsx ***!
-  \************************************************/
+/***/ "./resources/ts/roots/NotLoginRouter.tsx":
+/*!***********************************************!*\
+  !*** ./resources/ts/roots/NotLoginRouter.tsx ***!
+  \***********************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -49216,7 +49314,7 @@ var PageNotFound_1 = __webpack_require__(/*! ../screens/PageNotFound */ "./resou
 
 
 var NotLoginRouter = function NotLoginRouter() {
-  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("p", null, "Wlellcome!! You must be logged in to use this app!"), react_1["default"].createElement(react_router_dom_1.BrowserRouter, null, react_1["default"].createElement(react_router_dom_1.Routes, null, react_1["default"].createElement(react_router_dom_1.Route, {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(react_router_dom_1.BrowserRouter, null, react_1["default"].createElement(react_router_dom_1.Routes, null, react_1["default"].createElement(react_router_dom_1.Route, {
     path: "/",
     element: react_1["default"].createElement(WelcomeScreen_1.WelcomeScreen, null)
   }), react_1["default"].createElement(react_router_dom_1.Route, {
@@ -49255,11 +49353,107 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.LoginScreen = void 0; // ---[ import ]----------------------------------------------------------------
 
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js")); // ---[ styles ]----------------------------------------------------------------
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+/* material-ui */
 
+
+var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+
+var core_1 = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* material-ui icon */
+
+
+var Email_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/Email */ "./node_modules/@mui/icons-material/Email.js"));
+
+var Key_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/Key */ "./node_modules/@mui/icons-material/Key.js")); // ---[ styles ]----------------------------------------------------------------
+
+
+var useStyles = (0, styles_1.makeStyles)(function (theme) {
+  return (0, styles_1.createStyles)({
+    container: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 80
+    },
+    login_container: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      padding: 16,
+      width: '500px',
+      border: '1px solid black',
+      borderRadius: 15,
+      backgroundColor: '#fff'
+    },
+    container_title: {
+      marginBottom: 40
+    },
+    container_item: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: 16,
+      width: '80%'
+    },
+    container_item_icon: {
+      marginRight: 16,
+      height: '64px'
+    },
+    container_item_text_field: {
+      width: '100%',
+      border: 'none'
+    },
+    container_item_button: {
+      marginTop: 80,
+      marginBottom: 8,
+      width: '80%',
+      borderRadius: 50
+    },
+    container_item_navigate: {
+      margin: 0
+    },
+    template: {}
+  });
+}); // ---[ types ]-----------------------------------------------------------------
+// ---[ process ]---------------------------------------------------------------
 
 var LoginScreen = function LoginScreen() {
-  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("p", null, "LoginScreen"));
+  var classes = useStyles();
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(core_1.Container, {
+    className: classes.container
+  }, react_1["default"].createElement(core_1.Box, {
+    className: classes.login_container
+  }, react_1["default"].createElement(core_1.Typography, {
+    className: classes.container_title,
+    variant: 'h5'
+  }, "Awake\u306B\u30ED\u30B0\u30A4\u30F3"), react_1["default"].createElement(core_1.Box, {
+    className: classes.container_item
+  }, react_1["default"].createElement(Email_1["default"], {
+    className: classes.container_item_icon
+  }), react_1["default"].createElement(core_1.TextField, {
+    className: classes.container_item_text_field,
+    label: "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9",
+    variant: 'outlined',
+    size: 'small'
+  })), react_1["default"].createElement(core_1.Box, {
+    className: classes.container_item
+  }, react_1["default"].createElement(Key_1["default"], {
+    className: classes.container_item_icon
+  }), react_1["default"].createElement(core_1.TextField, {
+    className: classes.container_item_text_field,
+    label: "\u30D1\u30B9\u30EF\u30FC\u30C9",
+    variant: 'outlined',
+    type: 'password',
+    size: 'small'
+  })), react_1["default"].createElement(core_1.Button, {
+    className: classes.container_item_button,
+    variant: 'contained'
+  }, "\u30ED\u30B0\u30A4\u30F3"), react_1["default"].createElement(core_1.Box, {
+    className: classes.container_item_navigate,
+    component: 'p'
+  }, "\u30A2\u30AB\u30A6\u30F3\u30C8\u3092\u304A\u6301\u3061\u3067\u306A\u3044\u65B9\u306F\u767B\u9332"))));
 };
 
 exports.LoginScreen = LoginScreen;
@@ -49317,11 +49511,118 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.RegisterScreen = void 0; // ---[ import ]----------------------------------------------------------------
 
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js")); // ---[ styles ]----------------------------------------------------------------
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+/* material-ui */
 
+
+var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+
+var core_1 = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* material-ui icon */
+
+
+var AccountCircle_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/AccountCircle */ "./node_modules/@mui/icons-material/AccountCircle.js"));
+
+var Email_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/Email */ "./node_modules/@mui/icons-material/Email.js"));
+
+var Key_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/Key */ "./node_modules/@mui/icons-material/Key.js")); // ---[ styles ]----------------------------------------------------------------
+
+
+var useStyles = (0, styles_1.makeStyles)(function (theme) {
+  return (0, styles_1.createStyles)({
+    container: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 80
+    },
+    login_container: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      padding: 16,
+      width: '500px',
+      border: '1px solid black',
+      borderRadius: 15,
+      backgroundColor: '#fff'
+    },
+    container_title: {
+      marginBottom: 40
+    },
+    container_item: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: 16,
+      width: '80%'
+    },
+    container_item_icon: {
+      marginRight: 16,
+      height: '64px'
+    },
+    container_item_text_field: {
+      width: '100%',
+      border: 'none'
+    },
+    container_item_button: {
+      marginTop: 80,
+      marginBottom: 8,
+      width: '80%',
+      borderRadius: 50
+    },
+    container_item_navigate: {
+      margin: 0
+    },
+    template: {}
+  });
+}); // ---[ types ]-----------------------------------------------------------------
+// ---[ process ]---------------------------------------------------------------
 
 var RegisterScreen = function RegisterScreen() {
-  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("p", null, "RegisterScreen"));
+  var classes = useStyles();
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(core_1.Container, {
+    className: classes.container
+  }, react_1["default"].createElement(core_1.Box, {
+    className: classes.login_container
+  }, react_1["default"].createElement(core_1.Typography, {
+    className: classes.container_title,
+    variant: 'h5'
+  }, "Awake\u3092\u59CB\u3081\u307E\u3057\u3087\u3046"), react_1["default"].createElement(core_1.Box, {
+    className: classes.container_item
+  }, react_1["default"].createElement(AccountCircle_1["default"], {
+    className: classes.container_item_icon
+  }), react_1["default"].createElement(core_1.TextField, {
+    className: classes.container_item_text_field,
+    label: "\u540D\u524D",
+    variant: 'outlined',
+    size: 'small'
+  })), react_1["default"].createElement(core_1.Box, {
+    className: classes.container_item
+  }, react_1["default"].createElement(Email_1["default"], {
+    className: classes.container_item_icon
+  }), react_1["default"].createElement(core_1.TextField, {
+    className: classes.container_item_text_field,
+    label: "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9",
+    variant: 'outlined',
+    size: 'small'
+  })), react_1["default"].createElement(core_1.Box, {
+    className: classes.container_item
+  }, react_1["default"].createElement(Key_1["default"], {
+    className: classes.container_item_icon
+  }), react_1["default"].createElement(core_1.TextField, {
+    className: classes.container_item_text_field,
+    label: "\u30D1\u30B9\u30EF\u30FC\u30C9",
+    variant: 'outlined',
+    type: 'password',
+    size: 'small'
+  })), react_1["default"].createElement(core_1.Button, {
+    className: classes.container_item_button,
+    variant: 'contained'
+  }, "\u767B\u9332"), react_1["default"].createElement(core_1.Box, {
+    className: classes.container_item_navigate,
+    component: 'p'
+  }, "\u30A2\u30AB\u30A6\u30F3\u30C8\u3092\u304A\u6301\u3061\u306E\u65B9\u306F\u30ED\u30B0\u30A4\u30F3\u3057\u3066\u304F\u3060\u3055\u3044"))));
 };
 
 exports.RegisterScreen = RegisterScreen;

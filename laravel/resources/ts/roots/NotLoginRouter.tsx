@@ -11,10 +11,6 @@ import { PageNotFound } from '../screens/PageNotFound';
 export const NotLoginRouter = () => {
   return (
     <>
-      <p>
-        Wlellcome!!
-        You must be logged in to use this app!
-      </p>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<WelcomeScreen />} />
