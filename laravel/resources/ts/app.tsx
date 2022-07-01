@@ -19,9 +19,12 @@ import {
 } from '@material-ui/core';
 /* material-ui icon */
 
+
+/* routes */
+import { NotLoginRouter } from './routes/NotLoginRouter';
 /* components */
+
 /* screens */
-import { WelcomeScreen } from './screens/WelcomeScreen';
 import { TopScreen } from './screens/TopScreen';
 
 // ---[ process ]---------------------------------------------------------------
@@ -36,7 +39,7 @@ export default function App() {
   return (
     <>
       <ThemaContexts.Provider value={{ themas, setThemas }}>
-        {!user ? <WelcomeScreen /> : <TopScreen />}
+        {!user ? <NotLoginRouter /> : <TopScreen />}
       </ThemaContexts.Provider>
     </>
   );

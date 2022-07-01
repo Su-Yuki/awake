@@ -48533,12 +48533,14 @@ var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_m
 var ThemaContext_1 = __webpack_require__(/*! ./contexts/ThemaContext */ "./resources/ts/contexts/ThemaContext.ts");
 /* material-ui icon */
 
+/* routes */
+
+
+var NotLoginRouter_1 = __webpack_require__(/*! ./routes/NotLoginRouter */ "./resources/ts/routes/NotLoginRouter.tsx");
 /* components */
 
 /* screens */
 
-
-var WelcomeScreen_1 = __webpack_require__(/*! ./screens/WelcomeScreen */ "./resources/ts/screens/WelcomeScreen.tsx");
 
 var TopScreen_1 = __webpack_require__(/*! ./screens/TopScreen */ "./resources/ts/screens/TopScreen.tsx"); // ---[ process ]---------------------------------------------------------------
 
@@ -48558,7 +48560,7 @@ function App() {
       themas: themas,
       setThemas: setThemas
     }
-  }, !user ? react_1["default"].createElement(WelcomeScreen_1.WelcomeScreen, null) : react_1["default"].createElement(TopScreen_1.TopScreen, null)));
+  }, !user ? react_1["default"].createElement(NotLoginRouter_1.NotLoginRouter, null) : react_1["default"].createElement(TopScreen_1.TopScreen, null)));
 }
 
 exports["default"] = App;
@@ -49180,6 +49182,59 @@ exports.ThemaContexts = (0, react_1.createContext)({
 
 /***/ }),
 
+/***/ "./resources/ts/routes/NotLoginRouter.tsx":
+/*!************************************************!*\
+  !*** ./resources/ts/routes/NotLoginRouter.tsx ***!
+  \************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.NotLoginRouter = void 0; // ---[ import ]----------------------------------------------------------------
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var WelcomeScreen_1 = __webpack_require__(/*! ../screens/WelcomeScreen */ "./resources/ts/screens/WelcomeScreen.tsx");
+
+var RegisterScreen_1 = __webpack_require__(/*! ../screens/RegisterScreen */ "./resources/ts/screens/RegisterScreen.tsx");
+
+var LoginScreen_1 = __webpack_require__(/*! ../screens/LoginScreen */ "./resources/ts/screens/LoginScreen.tsx");
+
+var PageNotFound_1 = __webpack_require__(/*! ../screens/PageNotFound */ "./resources/ts/screens/PageNotFound.tsx"); // ---[ styles ]----------------------------------------------------------------
+
+
+var NotLoginRouter = function NotLoginRouter() {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("p", null, "Wlellcome!! You must be logged in to use this app!"), react_1["default"].createElement(react_router_dom_1.BrowserRouter, null, react_1["default"].createElement(react_router_dom_1.Routes, null, react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "/",
+    element: react_1["default"].createElement(WelcomeScreen_1.WelcomeScreen, null)
+  }), react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "/login",
+    element: react_1["default"].createElement(LoginScreen_1.LoginScreen, null)
+  }), react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "/register",
+    element: react_1["default"].createElement(RegisterScreen_1.RegisterScreen, null)
+  }), react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "*",
+    element: react_1["default"].createElement(PageNotFound_1.PageNotFound, null)
+  }))));
+};
+
+exports.NotLoginRouter = NotLoginRouter;
+
+/***/ }),
+
 /***/ "./resources/ts/screens/LoginScreen.tsx":
 /*!**********************************************!*\
   !*** ./resources/ts/screens/LoginScreen.tsx ***!
@@ -49330,31 +49385,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.WelcomeScreen = void 0; // ---[ import ]----------------------------------------------------------------
 
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-
-var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
-
-var PageNotFound_1 = __webpack_require__(/*! ./PageNotFound */ "./resources/ts/screens/PageNotFound.tsx");
-
-var RegisterScreen_1 = __webpack_require__(/*! ./RegisterScreen */ "./resources/ts/screens/RegisterScreen.tsx");
-
-var LoginScreen_1 = __webpack_require__(/*! ./LoginScreen */ "./resources/ts/screens/LoginScreen.tsx"); // ---[ styles ]----------------------------------------------------------------
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js")); // ---[ styles ]----------------------------------------------------------------
 
 
 var WelcomeScreen = function WelcomeScreen() {
-  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("p", null, "Wlellcome!! You must be logged in to use this app!"), react_1["default"].createElement(react_router_dom_1.BrowserRouter, null, react_1["default"].createElement(react_router_dom_1.Routes, null, react_1["default"].createElement(react_router_dom_1.Route, {
-    path: "/",
-    element: react_1["default"].createElement(PageNotFound_1.PageNotFound, null)
-  }), react_1["default"].createElement(react_router_dom_1.Route, {
-    path: "/login",
-    element: react_1["default"].createElement(LoginScreen_1.LoginScreen, null)
-  }), react_1["default"].createElement(react_router_dom_1.Route, {
-    path: "/register",
-    element: react_1["default"].createElement(RegisterScreen_1.RegisterScreen, null)
-  }), react_1["default"].createElement(react_router_dom_1.Route, {
-    path: "*",
-    element: react_1["default"].createElement(PageNotFound_1.PageNotFound, null)
-  }))));
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("p", null, "WelcomeScreen"));
 };
 
 exports.WelcomeScreen = WelcomeScreen;
