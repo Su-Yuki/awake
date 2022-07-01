@@ -28,7 +28,8 @@ import { TopScreen } from './screens/TopScreen';
 export default function App() {
   // style
   // const classes = useStyles();
-  const user = 'TestUser';
+  const user = null;
+  // const user = 'TestUser';
 
   const [themas, setThemas] = useState<Thema[]>([]);
 
