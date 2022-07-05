@@ -7,7 +7,7 @@ volumes:
 
 # ---[ Container Information  ]-------------------------------------------------
 services:
-  # Application container 
+  # Application container
   app:
     container_name: app
     build:          ./docker/php
@@ -15,7 +15,7 @@ services:
       # - .:/var/www/html
       - ${APP_CODE_PATH_HOST}:/var/www/html/
 
-  # nginx container 
+  # nginx container
   nginx:
     container_name: nginx
     image:          nginx:alpine
@@ -39,12 +39,12 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MYSQL_PASSWORD:      ${DB_PASSWORD}
       TZ:                  ${TIME_ZONE}
-    command:        
+    command:
       mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - docker-volume:/var/lib/mysql
 
-  # phpmyadmin container 
+  # phpmyadmin container
   phpmyadmin:
     container_name: phpmyadmin
     image:          phpmyadmin/phpmyadmin
@@ -58,7 +58,7 @@ services:
     ports:
       - ${PHPMYADMIN_PORT}:80
 
-  # mailhog container 
+  # mailhog container
   mailhog:
     container_name: mailhog
     image: mailhog/mailhog

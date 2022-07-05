@@ -2,10 +2,10 @@
 import React from 'react';
 
 // ---[ styles ]----------------------------------------------------------------
-export const WelcomeScreen = () => {
+export const PageNotFound = () => {
   return (
     <>
-      <p>WelcomeScreen</p>
+      <p>page 404 not found</p>
     </>
   );
 }

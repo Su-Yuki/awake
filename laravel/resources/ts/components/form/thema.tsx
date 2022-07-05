@@ -2,6 +2,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 
+/* contexts */
+import { UserContext } from '../../contexts/UserContext';
+
 import axios from 'axios';
 
 /* contexts */
@@ -41,21 +44,16 @@ const useStyles = makeStyles((theme) =>
 );
 
 // ---[ types ]-----------------------------------------------------------------
-type PostThema = {
-	user_id: number | string;
-	thema:   string;
-}
+
 
 // ---[ process ]---------------------------------------------------------------
 export const CreateThemaForm: React.FC = () => {
 	const classes = useStyles();
 
 	// Set state
-  const {themas, setThemas} = useContext(ThemaContexts);
-  // ユーザ認証をするまでひとまず１をセット
-  const [user, setuser]           = useState<string>('1');
+  const {themas, setThemas}       = useContext(ThemaContexts);
+  const {user, setUser}           = useContext(UserContext);
 	const [themaName, setThemaName] = useState<string>('');
-	const [formData, setFormData]   = useState<PostThema>({user_id: user, thema: ''});
 
 	const themaPost = async() => {
 		// フロントで空をひとまずreturnさせとく
@@ -66,9 +64,8 @@ export const CreateThemaForm: React.FC = () => {
 		try {
       await axios
         .post('api/thema/store', {
-          // ユーザ認証をするまでひとまず１をセット
-          user_id: "1",
-          thema:   formData.thema
+          user_id: user?.userId,
+          thema:   themaName
         })
         .then((res) => {
           const thema = {
@@ -83,7 +80,6 @@ export const CreateThemaForm: React.FC = () => {
 
           // 初期化
           setThemaName('');
-          setFormData({user_id: '', thema: ''});
         })
         .catch(error => {
           console.log(error);
@@ -95,14 +91,10 @@ export const CreateThemaForm: React.FC = () => {
 
 	// Thema input type onChange logic
 	const inputChangeForm = (input: React.ChangeEvent<any>): void => {
-		const key: keyof PostThema = input.target.name;
-		const value: typeof key    = input.target.value;
-		formData[key]              = value;
-		let data                   = Object.assign({}, formData);
+		const value = input.target.value;
 
     // setState
     setThemaName(value);
-		setFormData(data);
 	}
 
 	// action check(test)
@@ -121,7 +113,6 @@ export const CreateThemaForm: React.FC = () => {
           value={themaName}
           name='thema'
         />
-        <input type="hidden" value="1" name="user_id" />
         <Box className={classes.container_innner_bottom}>
         <Button
           className={classes.thema_submit}
