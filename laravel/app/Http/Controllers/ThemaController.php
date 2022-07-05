@@ -17,8 +17,8 @@ class ThemaController extends Controller
    */
   public function index(Request $request, ShowThemaListUseCase $useCase)
   {
-    // ユーザログイン機能を作るまでひとまず「１」を入れる
-    $user_id = 1;
+    // ユーザID
+    $user_id = $request->id;
 
     return $useCase
       ? response()->json($useCase($user_id), 201)

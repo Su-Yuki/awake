@@ -3,14 +3,15 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 /* contexts */
-import { ThemaContexts } from './contexts/ThemaContext'
+import { ThemaContexts } from './contexts/ThemaContext';
+import { UserContext } from './contexts/UserContext';
 
 /* type */
 import { Thema } from './type/Thema';
+import { User } from './type/User';
 
 /* routes */
-import { NotLoginRouter } from './roots/NotLoginRouter';
-/* components */
+import { NotLoginRouter } from './routes/NotLoginRouter';
 
 /* screens */
 import { TopScreen } from './screens/TopScreen';
@@ -23,7 +24,7 @@ import { Container } from '@material-ui/core';
 const useStyles = makeStyles((theme) =>
 	createStyles({
 		container: {
-      height: "100vh"
+      height: "100%"
 		},
   })
 );
@@ -33,16 +34,25 @@ export default function App() {
   // style
   const classes = useStyles();
 
-  const user = null;
-  // const user = 'TestUser';
-
+  const [user, setUser]     = useState<User | null>(null);
   const [themas, setThemas] = useState<Thema[]>([]);
+
+  useEffect(() => {
+    if (localStorage.getItem("loginUser")){
+      const userStrageText: any    = localStorage.getItem('loginUser')
+      const loginUser: User | null = JSON.parse(userStrageText)
+
+      setUser(loginUser)
+    }
+  }, [])
 
   return (
     <Container className={classes.container}>
-      <ThemaContexts.Provider value={{ themas, setThemas }}>
-        {!user ? <NotLoginRouter /> : <TopScreen />}
-      </ThemaContexts.Provider>
+      <UserContext.Provider value={{user, setUser}}>
+        <ThemaContexts.Provider value={{ themas, setThemas }}>
+          {!user ? <NotLoginRouter /> : <TopScreen />}
+        </ThemaContexts.Provider>
+      </UserContext.Provider>
     </Container>
   );
 }
