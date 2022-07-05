@@ -5,10 +5,15 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 /* contexts */
+import { UserContext } from '../contexts/UserContext';
+
+/* contexts */
 import { ThemaContexts } from '../contexts/ThemaContext';
 
-/* ApiList */
+/* type */
+import { User } from '../type/User';
 
+/* ApiList */
 
 /* types */
 import { Thema } from '../type/Thema';
@@ -110,19 +115,20 @@ export const ThemaList: React.FC = () => {
   const classes = useStyles();
 
   // state
-  const {themas, setThemas}       = useContext(ThemaContexts);
+  const {user, setUser}     = useContext(UserContext);
+  const {themas, setThemas} = useContext(ThemaContexts);
+
+  const userId = user?.userId;
 
   // effect
   useEffect(() => {
     fetchThemas()
   }, [])
 
-  const ListItems = [...themas];
-
   // get themaList
   const fetchThemas = async () => {
     try {
-      const themas = await axios.get('api/thema')
+      const themas = await axios.get(`api/thema?id=${userId}`)
       setThemas(themas.data.thema);
     } catch (error) {
       console.error(error);
