@@ -41093,6 +41093,34 @@ exports["default"] = _default;
 
 /***/ }),
 
+/***/ "./node_modules/@mui/icons-material/Create.js":
+/*!****************************************************!*\
+  !*** ./node_modules/@mui/icons-material/Create.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@mui/icons-material/utils/createSvgIcon.js"));
+
+var _jsxRuntime = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var _default = (0, _createSvgIcon.default)( /*#__PURE__*/(0, _jsxRuntime.jsx)("path", {
+  d: "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+}), 'Create');
+
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ "./node_modules/@mui/icons-material/Email.js":
 /*!***************************************************!*\
   !*** ./node_modules/@mui/icons-material/Email.js ***!
@@ -48614,17 +48642,11 @@ var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_m
 /* contexts */
 
 
-var ThemaContext_1 = __webpack_require__(/*! ./contexts/ThemaContext */ "./resources/ts/contexts/ThemaContext.ts");
-
 var UserContext_1 = __webpack_require__(/*! ./contexts/UserContext */ "./resources/ts/contexts/UserContext.ts");
-/* routes */
 
+var LoggedRouter_1 = __webpack_require__(/*! ./routes/LoggedRouter */ "./resources/ts/routes/LoggedRouter.tsx");
 
-var NotLoginRouter_1 = __webpack_require__(/*! ./routes/NotLoginRouter */ "./resources/ts/routes/NotLoginRouter.tsx");
-/* screens */
-
-
-var TopScreen_1 = __webpack_require__(/*! ./screens/TopScreen */ "./resources/ts/screens/TopScreen.tsx");
+var WelcomeScreen_1 = __webpack_require__(/*! ./screens/WelcomeScreen */ "./resources/ts/screens/WelcomeScreen.tsx");
 /* material-ui */
 
 
@@ -48650,18 +48672,13 @@ function App() {
       user = _ref2[0],
       setUser = _ref2[1];
 
-  var _ref3 = (0, react_1.useState)([]),
-      _ref4 = _slicedToArray(_ref3, 2),
-      themas = _ref4[0],
-      setThemas = _ref4[1]; // useEffect(() => {
-  //   if (localStorage.getItem("loginUser")){
-  //     const userStrageText: any    = localStorage.getItem('loginUser')
-  //     const loginUser: User | null = JSON.parse(userStrageText)
-  //     setUser(loginUser)
-  //   }
-  // }, [])
-
-
+  (0, react_1.useEffect)(function () {
+    if (localStorage.getItem("loginUser")) {
+      var userStrageText = localStorage.getItem('loginUser');
+      var loginUser = JSON.parse(userStrageText);
+      setUser(loginUser);
+    }
+  }, []);
   return react_1["default"].createElement(core_1.Container, {
     className: classes.container
   }, react_1["default"].createElement(UserContext_1.UserContext.Provider, {
@@ -48669,12 +48686,7 @@ function App() {
       user: user,
       setUser: setUser
     }
-  }, react_1["default"].createElement(ThemaContext_1.ThemaContexts.Provider, {
-    value: {
-      themas: themas,
-      setThemas: setThemas
-    }
-  }, !user ? react_1["default"].createElement(NotLoginRouter_1.NotLoginRouter, null) : react_1["default"].createElement(TopScreen_1.TopScreen, null))));
+  }, !user ? react_1["default"].createElement(WelcomeScreen_1.WelcomeScreen, null) : react_1["default"].createElement(LoggedRouter_1.LoggedRouter, null)));
 }
 
 exports["default"] = App;
@@ -48682,6 +48694,671 @@ exports["default"] = App;
 if (document.getElementById('app')) {
   react_dom_1["default"].render(react_1["default"].createElement(App, null), document.getElementById('app'));
 }
+
+/***/ }),
+
+/***/ "./resources/ts/components/InnerWordForm.tsx":
+/*!***************************************************!*\
+  !*** ./resources/ts/components/InnerWordForm.tsx ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.InnerWordForm = void 0; // ---[ import ]----------------------------------------------------------------
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* contexts */
+
+
+var UserContext_1 = __webpack_require__(/*! ../contexts/UserContext */ "./resources/ts/contexts/UserContext.ts");
+
+var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
+
+var InnerWordContext_1 = __webpack_require__(/*! ../contexts/InnerWordContext */ "./resources/ts/contexts/InnerWordContext.ts");
+/* material-ui */
+
+
+var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+
+var core_1 = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js"); // ---[ style ]-----------------------------------------------------------------
+
+
+var useStyles = (0, styles_1.makeStyles)(function (theme) {
+  return (0, styles_1.createStyles)({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      padding: 16,
+      borderBottom: '1px solid black'
+    },
+    container_innner_top: {},
+    container_innner_bottom: {
+      marginTop: 8,
+      display: 'flex',
+      flexDirection: 'row-reverse'
+    },
+    input_thema: {
+      width: '100%'
+    },
+    thema_submit: {
+      borderRadius: 50
+    }
+  });
+}); // ---[ types ]-----------------------------------------------------------------
+// ---[ process ]---------------------------------------------------------------
+
+var InnerWordForm = function InnerWordForm() {
+  var classes = useStyles(); // Set state
+
+  var _ref = (0, react_1.useContext)(InnerWordContext_1.InnerWordContexts),
+      innerWords = _ref.innerWords,
+      setInnerWords = _ref.setInnerWords;
+
+  var _ref2 = (0, react_1.useContext)(UserContext_1.UserContext),
+      user = _ref2.user,
+      setUser = _ref2.setUser;
+
+  var _ref3 = (0, react_1.useState)(''),
+      _ref4 = _slicedToArray(_ref3, 2),
+      innerWord = _ref4[0],
+      setInnerWord = _ref4[1];
+
+  var themaId = (0, react_router_dom_1.useParams)().thema_id;
+
+  var innerWordPost = function innerWordPost() {
+    return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!(innerWord === '')) {
+                _context.next = 2;
+                break;
+              }
+
+              return _context.abrupt("return", null);
+
+            case 2:
+              _context.prev = 2;
+              _context.next = 5;
+              return axios_1["default"].post("//localhost/api/inner_words/store", {
+                thema_id: themaId,
+                inner_word: innerWord
+              }).then(function (res) {
+                var resInnerWord = {
+                  id: res.data.inner_word.id,
+                  thema_id: Number(res.data.inner_word.user_id),
+                  inner_word: res.data.inner_word.inner_word,
+                  so_word: res.data.inner_word.so_word,
+                  really_word: res.data.inner_word.really_word,
+                  why_word: res.data.inner_word.why_word,
+                  outside_word: res.data.inner_word.outside_word,
+                  updated_at: res.data.inner_word.updated_at,
+                  created_at: res.data.inner_word.created_at
+                };
+                setInnerWords([resInnerWord].concat(_toConsumableArray(innerWords))); // 初期化
+
+                setInnerWord('');
+              })["catch"](function (error) {
+                console.log(error);
+              });
+
+            case 5:
+              _context.next = 10;
+              break;
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](2);
+              console.error(_context.t0);
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[2, 7]]);
+    }));
+  }; // input type onChange logic
+
+
+  var inputChangeForm = function inputChangeForm(input) {
+    var value = input.target.value; // setState
+
+    setInnerWord(value);
+  };
+
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("form", {
+    className: classes.container,
+    method: 'post'
+  }, react_1["default"].createElement(core_1.TextField, {
+    className: classes.input_thema,
+    label: "\u5185\u306A\u308B\u8A00\u8449\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044",
+    variant: 'outlined',
+    onChange: inputChangeForm,
+    value: innerWord,
+    name: 'innerWord'
+  }), react_1["default"].createElement(core_1.Box, {
+    className: classes.container_innner_bottom
+  }, react_1["default"].createElement(core_1.Button, {
+    className: classes.thema_submit,
+    variant: 'contained',
+    color: 'primary',
+    onClick: innerWordPost
+  }, "\u4F5C\u6210\u3059\u308B"))));
+};
+
+exports.InnerWordForm = InnerWordForm;
+
+/***/ }),
+
+/***/ "./resources/ts/components/InnerWordHeader.tsx":
+/*!*****************************************************!*\
+  !*** ./resources/ts/components/InnerWordHeader.tsx ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.InnerWordHeader = void 0; // ---[ import ]----------------------------------------------------------------
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* material-ui */
+
+
+var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+
+var core_1 = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* material-ui icon */
+
+
+var MoreHoriz_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/MoreHoriz */ "./node_modules/@mui/icons-material/MoreHoriz.js")); // ---[ styles ]----------------------------------------------------------------
+
+
+var useStyles = (0, styles_1.makeStyles)(function (theme) {
+  return (0, styles_1.createStyles)({
+    container: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      padding: 16,
+      marginBottom: 16,
+      borderBottom: '1px solid black'
+    },
+    left_container: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'start'
+    },
+    center_container: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    right_container: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'end'
+    }
+  });
+}); // ---[ styles ]----------------------------------------------------------------
+
+var InnerWordHeader = function InnerWordHeader() {
+  // style
+  var classes = useStyles();
+  return react_1["default"].createElement(core_1.Container, {
+    className: classes.container
+  }, react_1["default"].createElement(core_1.Box, {
+    className: classes.left_container
+  }, react_1["default"].createElement(react_router_dom_1.Link, {
+    to: "/"
+  }, "\u623B\u308B")), react_1["default"].createElement(core_1.Box, {
+    className: classes.center_container
+  }, react_1["default"].createElement(core_1.Typography, {
+    variant: "h5"
+  }, "\u5185\u306A\u308B\u8A00\u8449")), react_1["default"].createElement(core_1.Box, {
+    className: classes.right_container
+  }, react_1["default"].createElement(MoreHoriz_1["default"], null)));
+};
+
+exports.InnerWordHeader = InnerWordHeader;
+
+/***/ }),
+
+/***/ "./resources/ts/components/InnerWordList.tsx":
+/*!***************************************************!*\
+  !*** ./resources/ts/components/InnerWordList.tsx ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.InnerWordList = void 0; // ---[ import ]----------------------------------------------------------------
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
+/* contexts */
+
+
+var UserContext_1 = __webpack_require__(/*! ../contexts/UserContext */ "./resources/ts/contexts/UserContext.ts");
+
+var InnerWordContext_1 = __webpack_require__(/*! ../contexts/InnerWordContext */ "./resources/ts/contexts/InnerWordContext.ts");
+/* material-ui */
+
+
+var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+
+var core_1 = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
+/* material-ui icon */
+
+
+var StarBorder_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/StarBorder */ "./node_modules/@mui/icons-material/StarBorder.js"));
+
+var MoreHoriz_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/MoreHoriz */ "./node_modules/@mui/icons-material/MoreHoriz.js"));
+
+var Create_1 = __importDefault(__webpack_require__(/*! @mui/icons-material/Create */ "./node_modules/@mui/icons-material/Create.js")); // ---[ styles ]----------------------------------------------------------------
+
+
+var useStyles = (0, styles_1.makeStyles)(function (theme) {
+  return (0, styles_1.createStyles)({
+    // container
+    container: {
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      padding: 16
+    },
+    // container_parts
+    container_innner_top: {
+      display: 'flex',
+      flex: 1,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 16
+    },
+    container_innner_middle: {
+      padding: 16
+    },
+    container_innner_bottom: {
+      display: 'flex',
+      flexDirection: 'row-reverse',
+      marginTop: 16
+    },
+    // container_parts_items
+    input_search: {
+      width: '200px'
+    },
+    list_item: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      marginBottom: 8
+    },
+    list_item_right: {
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '64px',
+      backgroundColor: '#fff',
+      border: '1px solid black',
+      borderRight: 0,
+      borderTopLeftRadius: 5,
+      borderBottomLeftRadius: 5
+    },
+    list_item_center: {
+      display: 'flex',
+      flex: 10,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 8,
+      height: '64px',
+      backgroundColor: '#fff',
+      border: '1px solid black'
+    },
+    list_item_thema_input: {
+      width: '100%'
+    },
+    list_item_inner_prev: {
+      display: 'flex',
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '64px',
+      border: '1px solid black',
+      borderLeft: 0,
+      borderTopRightRadius: 5,
+      borderBottomRightRadius: 5,
+      "&:hover": {
+        background: "steelblue",
+        cursor: 'pointer'
+      }
+    }
+  });
+}); // ---[ process ]---------------------------------------------------------------
+
+var InnerWordList = function InnerWordList() {
+  // style
+  var classes = useStyles();
+  var navigate = (0, react_router_dom_1.useNavigate)(); // stateを宣言
+
+  var _ref = (0, react_1.useContext)(UserContext_1.UserContext),
+      user = _ref.user,
+      setUser = _ref.setUser;
+
+  var _ref2 = (0, react_1.useContext)(InnerWordContext_1.InnerWordContexts),
+      innerWords = _ref2.innerWords,
+      setInnerWords = _ref2.setInnerWords;
+
+  var themaId = (0, react_router_dom_1.useParams)().thema_id; // 画面マウント時
+
+  (0, react_1.useEffect)(function () {
+    fetchInnerWords();
+  }, []); // 内なる言葉を取得
+
+  var fetchInnerWords = function fetchInnerWords() {
+    return __awaiter(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var innerWordList;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.prev = 0;
+              _context.next = 3;
+              return axios_1["default"].get("//localhost/api/inner_words?thema_id=".concat(themaId));
+
+            case 3:
+              innerWordList = _context.sent;
+              setInnerWords(innerWordList.data.inner_word);
+              _context.next = 10;
+              break;
+
+            case 7:
+              _context.prev = 7;
+              _context.t0 = _context["catch"](0);
+              console.error(_context.t0);
+
+            case 10:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[0, 7]]);
+    }));
+  }; // 内なる言葉の変更処理
+
+
+  var onChangeInnerWord = function onChangeInnerWord(input, index) {
+    setInnerWords(innerWords.map(function (obj, objIndex) {
+      return index === objIndex ? Object.assign(Object.assign({}, obj), {
+        inner_word: input.target.value
+      }) : obj;
+    })); // feature update api logic
+  }; // 内なる言葉の詳細へ
+
+
+  var prevInnerWordDetail = function prevInnerWordDetail(input, innerWord) {
+    navigate("/inner_word/".concat(innerWord));
+  }; // returns element
+
+
+  return react_1["default"].createElement(core_1.Box, {
+    className: classes.container
+  }, react_1["default"].createElement(core_1.Box, {
+    className: classes.container_innner_top
+  }, react_1["default"].createElement(core_1.Typography, null, "\u5185\u306A\u308B\u8A00\u8449"), react_1["default"].createElement(core_1.TextField, {
+    id: 'filled-search',
+    className: classes.input_search,
+    label: "\u691C\u7D22\u3059\u308B",
+    variant: 'filled',
+    InputProps: {
+      disableUnderline: true
+    }
+  })), react_1["default"].createElement(core_1.Box, {
+    className: classes.container_innner_middle
+  }, "feature: A component of sorts will go in here."), react_1["default"].createElement(core_1.Box, null, react_1["default"].createElement(core_1.List, null, innerWords.map(function (innerWord, index) {
+    return react_1["default"].createElement(core_1.ListItem, {
+      key: index.toString(),
+      className: classes.list_item
+    }, react_1["default"].createElement(core_1.Box, {
+      className: classes.list_item_right
+    }, react_1["default"].createElement(StarBorder_1["default"], null)), react_1["default"].createElement(core_1.Box, {
+      className: classes.list_item_center
+    }, react_1["default"].createElement(core_1.TextField, {
+      className: classes.list_item_thema_input,
+      id: 'outlined',
+      InputProps: {
+        disableUnderline: true
+      },
+      value: innerWord.inner_word,
+      onChange: function onChange(e) {
+        return onChangeInnerWord(e, index);
+      }
+    }), react_1["default"].createElement(MoreHoriz_1["default"], null)), react_1["default"].createElement(core_1.Box, {
+      className: classes.list_item_inner_prev,
+      onClick: function onClick(e) {
+        return prevInnerWordDetail(e, innerWord.id);
+      }
+    }, react_1["default"].createElement(Create_1["default"], null)));
+  }))));
+};
+
+exports.InnerWordList = InnerWordList;
 
 /***/ }),
 
@@ -48783,13 +49460,13 @@ exports.ThemaList = void 0; // ---[ import ]------------------------------------
 
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 /* contexts */
 
 
 var UserContext_1 = __webpack_require__(/*! ../contexts/UserContext */ "./resources/ts/contexts/UserContext.ts");
-/* contexts */
-
 
 var ThemaContext_1 = __webpack_require__(/*! ../contexts/ThemaContext */ "./resources/ts/contexts/ThemaContext.ts");
 /* material-ui */
@@ -48878,14 +49555,19 @@ var useStyles = (0, styles_1.makeStyles)(function (theme) {
       border: '1px solid black',
       borderLeft: 0,
       borderTopRightRadius: 5,
-      borderBottomRightRadius: 5
+      borderBottomRightRadius: 5,
+      "&:hover": {
+        background: "steelblue",
+        cursor: 'pointer'
+      }
     }
   });
 }); // ---[ process ]---------------------------------------------------------------
 
 var ThemaList = function ThemaList() {
   // style
-  var classes = useStyles(); // state
+  var classes = useStyles();
+  var navigate = (0, react_router_dom_1.useNavigate)(); // state
 
   var _ref = (0, react_1.useContext)(UserContext_1.UserContext),
       user = _ref.user,
@@ -48942,6 +49624,10 @@ var ThemaList = function ThemaList() {
     })); // feature update api logic
   };
 
+  var prevInnerWord = function prevInnerWord(input, thema_id) {
+    navigate("/inner_word/".concat(thema_id));
+  };
+
   return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(core_1.Box, {
     className: classes.container
   }, react_1["default"].createElement(core_1.Box, {
@@ -48975,7 +49661,10 @@ var ThemaList = function ThemaList() {
         return onChangeThema(e, index);
       }
     }), react_1["default"].createElement(MoreHoriz_1["default"], null)), react_1["default"].createElement(core_1.Box, {
-      className: classes.list_item_inner_prev
+      className: classes.list_item_inner_prev,
+      onClick: function onClick(e) {
+        return prevInnerWord(e, thema.id);
+      }
     }, react_1["default"].createElement(NavigateNext_1["default"], null)));
   })))));
 };
@@ -48984,9 +49673,9 @@ exports.ThemaList = ThemaList;
 
 /***/ }),
 
-/***/ "./resources/ts/components/form/Thema.tsx":
+/***/ "./resources/ts/components/form/thema.tsx":
 /*!************************************************!*\
-  !*** ./resources/ts/components/form/Thema.tsx ***!
+  !*** ./resources/ts/components/form/thema.tsx ***!
   \************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -49248,6 +49937,30 @@ exports.CreateThemaForm = CreateThemaForm;
 
 /***/ }),
 
+/***/ "./resources/ts/contexts/InnerWordContext.ts":
+/*!***************************************************!*\
+  !*** ./resources/ts/contexts/InnerWordContext.ts ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.InnerWordContexts = void 0; // ---[ import ]----------------------------------------------------------------
+
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js"); // ---[ process ]---------------------------------------------------------------
+
+
+exports.InnerWordContexts = (0, react_1.createContext)({
+  innerWords: [],
+  setInnerWords: function setInnerWords() {}
+});
+
+/***/ }),
+
 /***/ "./resources/ts/contexts/ThemaContext.ts":
 /*!***********************************************!*\
   !*** ./resources/ts/contexts/ThemaContext.ts ***!
@@ -49296,10 +50009,10 @@ exports.UserContext = (0, react_1.createContext)({
 
 /***/ }),
 
-/***/ "./resources/ts/routes/NotLoginRouter.tsx":
-/*!************************************************!*\
-  !*** ./resources/ts/routes/NotLoginRouter.tsx ***!
-  \************************************************/
+/***/ "./resources/ts/routes/LoggedRouter.tsx":
+/*!**********************************************!*\
+  !*** ./resources/ts/routes/LoggedRouter.tsx ***!
+  \**********************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -49314,13 +50027,17 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.NotLoginRouter = void 0; // ---[ import ]----------------------------------------------------------------
+exports.LoggedRouter = void 0; // ---[ import ]----------------------------------------------------------------
 
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+/* screens */
 
-var WelcomeScreen_1 = __webpack_require__(/*! ../screens/WelcomeScreen */ "./resources/ts/screens/WelcomeScreen.tsx");
+
+var TopScreen_1 = __webpack_require__(/*! ../screens/TopScreen */ "./resources/ts/screens/TopScreen.tsx");
+
+var InnerWordScreen_1 = __webpack_require__(/*! ../screens/InnerWordScreen */ "./resources/ts/screens/InnerWordScreen.tsx");
 
 var RegisterScreen_1 = __webpack_require__(/*! ../screens/RegisterScreen */ "./resources/ts/screens/RegisterScreen.tsx");
 
@@ -49329,10 +50046,13 @@ var LoginScreen_1 = __webpack_require__(/*! ../screens/LoginScreen */ "./resourc
 var PageNotFound_1 = __webpack_require__(/*! ../screens/PageNotFound */ "./resources/ts/screens/PageNotFound.tsx"); // ---[ styles ]----------------------------------------------------------------
 
 
-var NotLoginRouter = function NotLoginRouter() {
+var LoggedRouter = function LoggedRouter() {
   return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(react_router_dom_1.BrowserRouter, null, react_1["default"].createElement(react_router_dom_1.Routes, null, react_1["default"].createElement(react_router_dom_1.Route, {
     path: "/",
-    element: react_1["default"].createElement(WelcomeScreen_1.WelcomeScreen, null)
+    element: react_1["default"].createElement(TopScreen_1.TopScreen, null)
+  }), react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "/inner_word/:thema_id",
+    element: react_1["default"].createElement(InnerWordScreen_1.InnerWordScreen, null)
   }), react_1["default"].createElement(react_router_dom_1.Route, {
     path: "/login",
     element: react_1["default"].createElement(LoginScreen_1.LoginScreen, null)
@@ -49345,7 +50065,125 @@ var NotLoginRouter = function NotLoginRouter() {
   }))));
 };
 
-exports.NotLoginRouter = NotLoginRouter;
+exports.LoggedRouter = LoggedRouter;
+
+/***/ }),
+
+/***/ "./resources/ts/screens/InnerWordScreen.tsx":
+/*!**************************************************!*\
+  !*** ./resources/ts/screens/InnerWordScreen.tsx ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.InnerWordScreen = void 0; // ---[ import ]----------------------------------------------------------------
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+/* contexts */
+
+
+var InnerWordContext_1 = __webpack_require__(/*! ../contexts/InnerWordContext */ "./resources/ts/contexts/InnerWordContext.ts");
+/* components */
+
+
+var InnerWordForm_1 = __webpack_require__(/*! ../components/InnerWordForm */ "./resources/ts/components/InnerWordForm.tsx");
+
+var InnerWordList_1 = __webpack_require__(/*! ../components/InnerWordList */ "./resources/ts/components/InnerWordList.tsx");
+
+var InnerWordHeader_1 = __webpack_require__(/*! ../components/InnerWordHeader */ "./resources/ts/components/InnerWordHeader.tsx");
+/* material-ui */
+
+
+var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+
+var core_1 = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js"); // ---[ styles ]----------------------------------------------------------------
+
+
+var useStyles = (0, styles_1.makeStyles)(function (theme) {
+  return (0, styles_1.createStyles)({
+    container: {
+      width: "80%"
+    }
+  });
+}); // ---[ styles ]----------------------------------------------------------------
+
+var InnerWordScreen = function InnerWordScreen() {
+  // style
+  var classes = useStyles();
+
+  var _ref = (0, react_1.useState)([]),
+      _ref2 = _slicedToArray(_ref, 2),
+      innerWords = _ref2[0],
+      setInnerWords = _ref2[1];
+
+  return react_1["default"].createElement(core_1.Container, {
+    className: classes.container
+  }, react_1["default"].createElement(InnerWordContext_1.InnerWordContexts.Provider, {
+    value: {
+      innerWords: innerWords,
+      setInnerWords: setInnerWords
+    }
+  }, react_1["default"].createElement(InnerWordHeader_1.InnerWordHeader, null), react_1["default"].createElement(InnerWordForm_1.InnerWordForm, null), react_1["default"].createElement(InnerWordList_1.InnerWordList, null)));
+};
+
+exports.InnerWordScreen = InnerWordScreen;
 
 /***/ }),
 
@@ -50068,10 +50906,56 @@ exports.RegisterScreen = RegisterScreen;
 "use strict";
 
 
-var __importDefault = this && this.__importDefault || function (mod) {
-  return mod && mod.__esModule ? mod : {
-    "default": mod
-  };
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
 };
 
 Object.defineProperty(exports, "__esModule", ({
@@ -50079,11 +50963,15 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.TopScreen = void 0; // ---[ import ]----------------------------------------------------------------
 
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+/* contexts */
+
+
+var ThemaContext_1 = __webpack_require__(/*! ../contexts/ThemaContext */ "./resources/ts/contexts/ThemaContext.ts");
 /* components */
 
 
-var Thema_1 = __webpack_require__(/*! ../components/form/Thema */ "./resources/ts/components/form/Thema.tsx");
+var thema_1 = __webpack_require__(/*! ../components/form/thema */ "./resources/ts/components/form/thema.tsx");
 
 var ThemaList_1 = __webpack_require__(/*! ../components/ThemaList */ "./resources/ts/components/ThemaList.tsx");
 /* material-ui */
@@ -50105,9 +50993,20 @@ var useStyles = (0, styles_1.makeStyles)(function (theme) {
 var TopScreen = function TopScreen() {
   // style
   var classes = useStyles();
+
+  var _ref = (0, react_1.useState)([]),
+      _ref2 = _slicedToArray(_ref, 2),
+      themas = _ref2[0],
+      setThemas = _ref2[1];
+
   return react_1["default"].createElement(core_1.Container, {
     className: classes.container
-  }, react_1["default"].createElement(Thema_1.CreateThemaForm, null), react_1["default"].createElement(ThemaList_1.ThemaList, null));
+  }, react_1["default"].createElement(ThemaContext_1.ThemaContexts.Provider, {
+    value: {
+      themas: themas,
+      setThemas: setThemas
+    }
+  }, react_1["default"].createElement(thema_1.CreateThemaForm, null), react_1["default"].createElement(ThemaList_1.ThemaList, null)));
 };
 
 exports.TopScreen = TopScreen;

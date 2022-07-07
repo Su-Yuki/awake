@@ -13,7 +13,7 @@ export const NotLoginRouter = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<WelcomeScreen />} />
+          <Route index element={<WelcomeScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="*" element={<PageNotFound />} />

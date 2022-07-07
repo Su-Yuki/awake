@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) =>
 
 // ---[ types ]-----------------------------------------------------------------
 type LoginPram = {
-	email:     string;
+	email:    string;
 	password: string;
 }
 
@@ -91,9 +91,9 @@ export const LoginScreen = () => {
   const navigate = useNavigate();
 
   // state
-  const {user, setUser}                   = useContext(UserContext);
-  const [formData, setFormData]           = useState<LoginPram>({email: '', password: ''});
-  const [errorMessage, setErrorMessage]   = useState<string[]>([]);
+  const {user, setUser}                 = useContext(UserContext);
+  const [formData, setFormData]         = useState<LoginPram>({email: '', password: ''});
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
 
   const login = async() => {
     try {
