@@ -48,7 +48,7 @@ export default function App() {
   return (
     <Container className={classes.container}>
       <UserContext.Provider value={{user, setUser}}>
-        {!user ? <WelcomeScreen /> : <LoggedRouter />}
+        {!user ? <NotLoginRouter /> : <LoggedRouter />}
       </UserContext.Provider>
     </Container>
   );

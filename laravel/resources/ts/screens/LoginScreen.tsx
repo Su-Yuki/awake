@@ -1,5 +1,6 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 import axios from 'axios';
@@ -87,7 +88,8 @@ type LoginPram = {
 
 // ---[ process ]---------------------------------------------------------------
 export const LoginScreen = () => {
-  const classes = useStyles();
+  const classes  = useStyles();
+  const navigate = useNavigate();
 
   // state
   const {user, setUser}                 = useContext(UserContext);
@@ -120,6 +122,7 @@ export const LoginScreen = () => {
             setErrorMessage(['ログインに失敗しました'])
           });
         })
+      navigate('/');
     } catch (error) {
       console.error(error);
     }

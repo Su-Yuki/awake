@@ -48643,10 +48643,12 @@ var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_m
 
 
 var UserContext_1 = __webpack_require__(/*! ./contexts/UserContext */ "./resources/ts/contexts/UserContext.ts");
+/* routes */
+
+
+var NotLoginRouter_1 = __webpack_require__(/*! ./routes/NotLoginRouter */ "./resources/ts/routes/NotLoginRouter.tsx");
 
 var LoggedRouter_1 = __webpack_require__(/*! ./routes/LoggedRouter */ "./resources/ts/routes/LoggedRouter.tsx");
-
-var WelcomeScreen_1 = __webpack_require__(/*! ./screens/WelcomeScreen */ "./resources/ts/screens/WelcomeScreen.tsx");
 /* material-ui */
 
 
@@ -48686,7 +48688,7 @@ function App() {
       user: user,
       setUser: setUser
     }
-  }, !user ? react_1["default"].createElement(WelcomeScreen_1.WelcomeScreen, null) : react_1["default"].createElement(LoggedRouter_1.LoggedRouter, null)));
+  }, !user ? react_1["default"].createElement(NotLoginRouter_1.NotLoginRouter, null) : react_1["default"].createElement(LoggedRouter_1.LoggedRouter, null)));
 }
 
 exports["default"] = App;
@@ -50069,6 +50071,59 @@ exports.LoggedRouter = LoggedRouter;
 
 /***/ }),
 
+/***/ "./resources/ts/routes/NotLoginRouter.tsx":
+/*!************************************************!*\
+  !*** ./resources/ts/routes/NotLoginRouter.tsx ***!
+  \************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.NotLoginRouter = void 0; // ---[ import ]----------------------------------------------------------------
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var WelcomeScreen_1 = __webpack_require__(/*! ../screens/WelcomeScreen */ "./resources/ts/screens/WelcomeScreen.tsx");
+
+var RegisterScreen_1 = __webpack_require__(/*! ../screens/RegisterScreen */ "./resources/ts/screens/RegisterScreen.tsx");
+
+var LoginScreen_1 = __webpack_require__(/*! ../screens/LoginScreen */ "./resources/ts/screens/LoginScreen.tsx");
+
+var PageNotFound_1 = __webpack_require__(/*! ../screens/PageNotFound */ "./resources/ts/screens/PageNotFound.tsx"); // ---[ styles ]----------------------------------------------------------------
+
+
+var NotLoginRouter = function NotLoginRouter() {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(react_router_dom_1.BrowserRouter, null, react_1["default"].createElement(react_router_dom_1.Routes, null, react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "/",
+    element: react_1["default"].createElement(WelcomeScreen_1.WelcomeScreen, null)
+  }), react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "/login",
+    element: react_1["default"].createElement(LoginScreen_1.LoginScreen, null)
+  }), react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "/register",
+    element: react_1["default"].createElement(RegisterScreen_1.RegisterScreen, null)
+  }), react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "*",
+    element: react_1["default"].createElement(PageNotFound_1.PageNotFound, null)
+  }))));
+};
+
+exports.NotLoginRouter = NotLoginRouter;
+
+/***/ }),
+
 /***/ "./resources/ts/screens/InnerWordScreen.tsx":
 /*!**************************************************!*\
   !*** ./resources/ts/screens/InnerWordScreen.tsx ***!
@@ -50297,6 +50352,8 @@ exports.LoginScreen = void 0; // ---[ import ]----------------------------------
 
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 /* contexts */
 
@@ -50372,7 +50429,8 @@ var useStyles = (0, styles_1.makeStyles)(function (theme) {
 }); // ---[ process ]---------------------------------------------------------------
 
 var LoginScreen = function LoginScreen() {
-  var classes = useStyles(); // state
+  var classes = useStyles();
+  var navigate = (0, react_router_dom_1.useNavigate)(); // state
 
   var _ref = (0, react_1.useContext)(UserContext_1.UserContext),
       user = _ref.user,
@@ -50430,20 +50488,21 @@ var LoginScreen = function LoginScreen() {
               });
 
             case 3:
-              _context.next = 8;
+              navigate('/');
+              _context.next = 9;
               break;
 
-            case 5:
-              _context.prev = 5;
+            case 6:
+              _context.prev = 6;
               _context.t0 = _context["catch"](0);
               console.error(_context.t0);
 
-            case 8:
+            case 9:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 5]]);
+      }, _callee, null, [[0, 6]]);
     }));
   }; // input state onChange logic
 
