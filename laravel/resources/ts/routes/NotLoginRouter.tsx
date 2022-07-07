@@ -1,6 +1,6 @@
 // ---[ import ]----------------------------------------------------------------
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { WelcomeScreen } from '../screens/WelcomeScreen';
 import { RegisterScreen } from '../screens/RegisterScreen';

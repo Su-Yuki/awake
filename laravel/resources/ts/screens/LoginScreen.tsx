@@ -1,5 +1,6 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
 import axios from 'axios';
@@ -81,18 +82,19 @@ const useStyles = makeStyles((theme) =>
 
 // ---[ types ]-----------------------------------------------------------------
 type LoginPram = {
-	email:     string;
+	email:    string;
 	password: string;
 }
 
 // ---[ process ]---------------------------------------------------------------
 export const LoginScreen = () => {
-  const classes = useStyles();
+  const classes  = useStyles();
+  const navigate = useNavigate();
 
   // state
-  const {user, setUser}                   = useContext(UserContext);
-  const [formData, setFormData]           = useState<LoginPram>({email: '', password: ''});
-  const [errorMessage, setErrorMessage]   = useState<string[]>([]);
+  const {user, setUser}                 = useContext(UserContext);
+  const [formData, setFormData]         = useState<LoginPram>({email: '', password: ''});
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
 
   const login = async() => {
     try {
@@ -120,6 +122,7 @@ export const LoginScreen = () => {
             setErrorMessage(['ログインに失敗しました'])
           });
         })
+      navigate('/');
     } catch (error) {
       console.error(error);
     }
