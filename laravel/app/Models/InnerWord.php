@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class InnerWord extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    public function thema()
-    {
-        return $this->belongsTo(InnerWord::class);
-    }
+  protected $fillable = [
+    'thema_id',
+    'inner_word',
+  ];
+
+  public function thema()
+  {
+    return $this->belongsTo(InnerWord::class);
+  }
 }

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InnerWordRequest;
+use App\Models\InnerWord;
+use App\UseCase\InnerWord\ShowInnerWordListUseCase;
+use App\UseCase\InnerWord\StoreInnerWordUseCase;
 use Illuminate\Http\Request;
 
 class InnerWordController extends Controller
@@ -11,9 +15,13 @@ class InnerWordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, ShowInnerWordListUseCase $useCase)
     {
-        //
+      $thema_id = $request->thema_id;
+
+      return $useCase
+        ? response()->json($useCase($thema_id), 201)
+        : response()->json([], 500);
     }
 
     /**
@@ -32,9 +40,11 @@ class InnerWordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InnerWordRequest $request, StoreInnerWordUseCase $useCase)
     {
-        //
+      return $useCase
+      ? response()->json($useCase($request), 201)
+      : response()->json([], 500);
     }
 
     /**
