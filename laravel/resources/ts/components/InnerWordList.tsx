@@ -1,16 +1,15 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useEffect, useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 
 /* contexts */
 import { UserContext } from '../contexts/UserContext';
-import { ThemaContexts } from '../contexts/ThemaContext';
+import { InnerWordContexts } from '../contexts/InnerWordContext';
 
 /* type */
-import { User } from '../type/User';
-import { Thema } from '../type/Thema';
+import { InnerWord } from '../type/InnerWord';
 
 /* material-ui */
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -25,6 +24,7 @@ import {
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import CreateIcon from '@mui/icons-material/Create';
 
 // ---[ styles ]----------------------------------------------------------------
 const useStyles = makeStyles((theme) =>
@@ -108,103 +108,106 @@ const useStyles = makeStyles((theme) =>
 );
 
 // ---[ process ]---------------------------------------------------------------
-export const ThemaList: React.FC = () => {
+export const InnerWordList: React.FC = () => {
   // style
   const classes  = useStyles();
   const navigate = useNavigate();
 
-  // state
-  const {user, setUser}     = useContext(UserContext);
-  const {themas, setThemas} = useContext(ThemaContexts);
+  // stateを宣言
+  const {user, setUser}             = useContext(UserContext);
+  const {innerWords, setInnerWords} = useContext(InnerWordContexts);
 
-  const userId = user?.userId;
+  const themaId = useParams().thema_id;
 
-  // effect
+  // 画面マウント時
   useEffect(() => {
-    fetchThemas()
+    fetchInnerWords()
   }, [])
 
-  // get themaList
-  const fetchThemas = async () => {
+  // 内なる言葉を取得
+  const fetchInnerWords = async () => {
     try {
-      const themas = await axios.get(`api/thema?id=${userId}`)
-      setThemas(themas.data.thema);
+      const innerWordList = await axios.get(
+        `//localhost/api/inner_words?thema_id=${themaId}`
+      )
+      setInnerWords(innerWordList.data.inner_word);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // update Thema
-	const onChangeThema = (
+  // 内なる言葉の変更処理
+	const onChangeInnerWord = (
     input: React.ChangeEvent<any>,
     index: any
   ): void => {
-    setThemas(
-      themas.map((obj, objIndex) => (
+    setInnerWords(
+      innerWords.map((obj, objIndex) => (
         index === objIndex
-        ? {...obj, thema: input.target.value}
-        : obj
+          ? {...obj, inner_word: input.target.value}
+          : obj
       ))
     )
     // feature update api logic
 	}
 
-  const prevInnerWord = (
+  // 内なる言葉の詳細へ
+  const prevInnerWordDetail = (
     input: React.ChangeEvent<any>,
-    thema_id: number
+    innerWord: number
   ) => {
-    navigate(`/inner_word/${thema_id}`);
+    navigate(`/inner_word/${innerWord}`);
   }
 
+
+  // returns element
   return (
-    <>
-      <Box className={classes.container}>
-          <Box className={classes.container_innner_top}>
-            <Typography>テーマ一覧</Typography>
-            <TextField
-              id='filled-search'
-              className={classes.input_search}
-              label='検索する'
-              variant='filled'
-              InputProps={{ disableUnderline: true }}
-            />
-          </Box>
-          <Box className={classes.container_innner_middle}>
-              feature: A component of sorts will go in here.
-          </Box>
-          <Box>
-            <List>
-              {
-                themas.map((thema, index) => (
-                  <ListItem
-                    key={index.toString()}
-                    className={classes.list_item}
+    <Box className={classes.container}>
+        <Box className={classes.container_innner_top}>
+          <Typography>内なる言葉</Typography>
+          <TextField
+            id='filled-search'
+            className={classes.input_search}
+            label='検索する'
+            variant='filled'
+            InputProps={{ disableUnderline: true }}
+          />
+        </Box>
+        <Box className={classes.container_innner_middle}>
+            feature: A component of sorts will go in here.
+        </Box>
+        <Box>
+          <List>
+            {
+              innerWords.map((innerWord, index) => (
+                <ListItem
+                  key={index.toString()}
+                  className={classes.list_item}
+                >
+                  <Box className={classes.list_item_right} >
+                    <StarBorderIcon/>
+                  </Box>
+                  <Box className={classes.list_item_center}>
+                    <TextField
+                      className={classes.list_item_thema_input}
+                      id='outlined'
+                      InputProps={{ disableUnderline: true }}
+                      value={innerWord.inner_word}
+                      onChange={(e) => (onChangeInnerWord(e, index))}
+                    />
+                    <MoreHorizIcon />
+                  </Box>
+                  <Box
+                    className={classes.list_item_inner_prev}
+                    onClick={(e) => (prevInnerWordDetail(e, innerWord.id))}
                   >
-                    <Box className={classes.list_item_right} >
-                      <StarBorderIcon/>
-                    </Box>
-                    <Box className={classes.list_item_center}>
-                      <TextField
-                        className={classes.list_item_thema_input}
-                        id='outlined'
-                        InputProps={{ disableUnderline: true }}
-                        value={thema.thema}
-                        onChange={(e) => (onChangeThema(e, index))}
-                        />
-                      <MoreHorizIcon />
-                    </Box>
-                    <Box
-                      className={classes.list_item_inner_prev}
-                      onClick={(e) => (prevInnerWord(e, thema.id))}
-                    >
-                      <NavigateNextIcon />
-                    </Box>
-                  </ListItem>
-                ))
-              }
-            </List>
-          </Box>
-      </Box>
-    </>
+                    <CreateIcon />
+                  </Box>
+                </ListItem>
+              ))
+            }
+          </List>
+        </Box>
+    </Box>
   );
 }
