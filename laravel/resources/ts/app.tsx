@@ -3,18 +3,18 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 /* contexts */
-import { ThemaContexts } from './contexts/ThemaContext';
 import { UserContext } from './contexts/UserContext';
 
 /* type */
-import { Thema } from './type/Thema';
 import { User } from './type/User';
 
 /* routes */
 import { NotLoginRouter } from './routes/NotLoginRouter';
+import { LoggedRouter } from './routes/LoggedRouter';
 
 /* screens */
 import { TopScreen } from './screens/TopScreen';
+import { WelcomeScreen } from './screens/WelcomeScreen';
 
 /* material-ui */
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -35,7 +35,6 @@ export default function App() {
   const classes = useStyles();
 
   const [user, setUser]     = useState<User | null>(null);
-  const [themas, setThemas] = useState<Thema[]>([]);
 
   useEffect(() => {
     if (localStorage.getItem("loginUser")){
@@ -49,9 +48,7 @@ export default function App() {
   return (
     <Container className={classes.container}>
       <UserContext.Provider value={{user, setUser}}>
-        <ThemaContexts.Provider value={{ themas, setThemas }}>
-          {!user ? <NotLoginRouter /> : <TopScreen />}
-        </ThemaContexts.Provider>
+        {!user ? <WelcomeScreen /> : <LoggedRouter />}
       </UserContext.Provider>
     </Container>
   );
