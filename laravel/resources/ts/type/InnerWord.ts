@@ -1,7 +1,7 @@
 export type InnerWord = {
 	id:           number
 	thema_id:     number
-	Inner_word:   string
+	inner_word:   string
   so_word:      string
   really_word:  string
   why_word:     string
