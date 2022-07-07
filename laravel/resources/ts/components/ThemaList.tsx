@@ -1,21 +1,15 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useEffect, useState, useContext } from 'react';
-import ReactDOM from 'react-dom';
+import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 
 /* contexts */
 import { UserContext } from '../contexts/UserContext';
-
-/* contexts */
 import { ThemaContexts } from '../contexts/ThemaContext';
 
 /* type */
 import { User } from '../type/User';
-
-/* ApiList */
-
-/* types */
 import { Thema } from '../type/Thema';
 
 /* material-ui */
@@ -105,6 +99,10 @@ const useStyles = makeStyles((theme) =>
       borderLeft:                0,
       borderTopRightRadius:      5,
       borderBottomRightRadius:   5,
+      "&:hover": {
+        background:              "steelblue",
+        cursor:                  'pointer',
+      },
     },
   })
 );
@@ -112,7 +110,8 @@ const useStyles = makeStyles((theme) =>
 // ---[ process ]---------------------------------------------------------------
 export const ThemaList: React.FC = () => {
   // style
-  const classes = useStyles();
+  const classes  = useStyles();
+  const navigate = useNavigate();
 
   // state
   const {user, setUser}     = useContext(UserContext);
@@ -136,7 +135,10 @@ export const ThemaList: React.FC = () => {
   };
 
   // update Thema
-	const onChangeThema = (input: React.ChangeEvent<any>, index: any): void => {
+	const onChangeThema = (
+    input: React.ChangeEvent<any>,
+    index: any
+  ): void => {
     setThemas(
       themas.map((obj, objIndex) => (
         index === objIndex
@@ -146,6 +148,13 @@ export const ThemaList: React.FC = () => {
     )
     // feature update api logic
 	}
+
+  const prevInnerWord = (
+    input: React.ChangeEvent<any>,
+    thema_id: number
+  ) => {
+    navigate(`/inner_word/${thema_id}`);
+  }
 
   return (
     <>
@@ -164,33 +173,36 @@ export const ThemaList: React.FC = () => {
               feature: A component of sorts will go in here.
           </Box>
           <Box>
-              <List>
-                {
-                  themas.map((thema, index) => (
-                    <ListItem
-                      key={index.toString()}
-                      className={classes.list_item}
+            <List>
+              {
+                themas.map((thema, index) => (
+                  <ListItem
+                    key={index.toString()}
+                    className={classes.list_item}
+                  >
+                    <Box className={classes.list_item_right} >
+                      <StarBorderIcon/>
+                    </Box>
+                    <Box className={classes.list_item_center}>
+                      <TextField
+                        className={classes.list_item_thema_input}
+                        id='outlined'
+                        InputProps={{ disableUnderline: true }}
+                        value={thema.thema}
+                        onChange={(e) => (onChangeThema(e, index))}
+                        />
+                      <MoreHorizIcon />
+                    </Box>
+                    <Box
+                      className={classes.list_item_inner_prev}
+                      onClick={(e) => (prevInnerWord(e, thema.id))}
                     >
-                      <Box className={classes.list_item_right} >
-                        <StarBorderIcon/>
-                      </Box>
-                      <Box className={classes.list_item_center}>
-                        <TextField
-                          className={classes.list_item_thema_input}
-                          id='outlined'
-                          InputProps={{ disableUnderline: true }}
-                          value={thema.thema}
-                          onChange={(e) => (onChangeThema(e, index))}
-                         />
-                        <MoreHorizIcon />
-                      </Box>
-                      <Box className={classes.list_item_inner_prev} >
-                        <NavigateNextIcon />
-                      </Box>
-                    </ListItem>
-                  ))
-                }
-              </List>
+                      <NavigateNextIcon />
+                    </Box>
+                  </ListItem>
+                ))
+              }
+            </List>
           </Box>
       </Box>
     </>
