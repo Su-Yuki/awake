@@ -27,4 +27,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   // relation theme
   Route::get('thema', 'App\Http\Controllers\ThemaController@index');
   Route::post('thema/store', 'App\Http\Controllers\ThemaController@store');
+
+  // relation theme
+  Route::get('inner_words', 'App\Http\Controllers\InnerWordController@index');
+  Route::post('inner_words/store', 'App\Http\Controllers\InnerWordController@store');
+});
+
+Route::group(['middleware' => 'api'], function(){
+
 });
