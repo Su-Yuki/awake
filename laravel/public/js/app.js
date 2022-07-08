@@ -49315,7 +49315,7 @@ var InnerWordList = function InnerWordList() {
 
 
   var prevInnerWordDetail = function prevInnerWordDetail(input, innerWord) {
-    navigate("/inner_word/".concat(innerWord));
+    navigate("/inner_word/item/".concat(themaId));
   }; // returns element
 
 
@@ -50041,6 +50041,8 @@ var TopScreen_1 = __webpack_require__(/*! ../screens/TopScreen */ "./resources/t
 
 var InnerWordScreen_1 = __webpack_require__(/*! ../screens/InnerWordScreen */ "./resources/ts/screens/InnerWordScreen.tsx");
 
+var InnerWordItemScreen_1 = __webpack_require__(/*! ../screens/InnerWordItemScreen */ "./resources/ts/screens/InnerWordItemScreen.tsx");
+
 var RegisterScreen_1 = __webpack_require__(/*! ../screens/RegisterScreen */ "./resources/ts/screens/RegisterScreen.tsx");
 
 var LoginScreen_1 = __webpack_require__(/*! ../screens/LoginScreen */ "./resources/ts/screens/LoginScreen.tsx");
@@ -50055,6 +50057,9 @@ var LoggedRouter = function LoggedRouter() {
   }), react_1["default"].createElement(react_router_dom_1.Route, {
     path: "/inner_word/:thema_id",
     element: react_1["default"].createElement(InnerWordScreen_1.InnerWordScreen, null)
+  }), react_1["default"].createElement(react_router_dom_1.Route, {
+    path: "/inner_word/item/:thema_id",
+    element: react_1["default"].createElement(InnerWordItemScreen_1.InnerWordItemScreen, null)
   }), react_1["default"].createElement(react_router_dom_1.Route, {
     path: "/login",
     element: react_1["default"].createElement(LoginScreen_1.LoginScreen, null)
@@ -50121,6 +50126,37 @@ var NotLoginRouter = function NotLoginRouter() {
 };
 
 exports.NotLoginRouter = NotLoginRouter;
+
+/***/ }),
+
+/***/ "./resources/ts/screens/InnerWordItemScreen.tsx":
+/*!******************************************************!*\
+  !*** ./resources/ts/screens/InnerWordItemScreen.tsx ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.InnerWordItemScreen = void 0; // ---[ import ]----------------------------------------------------------------
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js")); // ---[ styles ]----------------------------------------------------------------
+
+
+var InnerWordItemScreen = function InnerWordItemScreen() {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("p", null, "This is thema detail page"));
+};
+
+exports.InnerWordItemScreen = InnerWordItemScreen;
 
 /***/ }),
 

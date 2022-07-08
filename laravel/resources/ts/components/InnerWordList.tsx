@@ -156,7 +156,7 @@ export const InnerWordList: React.FC = () => {
     input: React.ChangeEvent<any>,
     innerWord: number
   ) => {
-    navigate(`/inner_word/${innerWord}`);
+    navigate(`/inner_word/item/${themaId}`);
   }
 
 
