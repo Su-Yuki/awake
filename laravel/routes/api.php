@@ -28,8 +28,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::get('thema', 'App\Http\Controllers\ThemaController@index');
   Route::post('thema/store', 'App\Http\Controllers\ThemaController@store');
 
-  // relation theme
+  // relation inner_words
   Route::get('inner_words', 'App\Http\Controllers\InnerWordController@index');
+  Route::get('inner_words/show', 'App\Http\Controllers\InnerWordController@show');
   Route::post('inner_words/store', 'App\Http\Controllers\InnerWordController@store');
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\InnerWordRequest;
 use App\Models\InnerWord;
+use App\UseCase\InnerWord\ShowInnerWordItemUseCase;
 use App\UseCase\InnerWord\ShowInnerWordListUseCase;
 use App\UseCase\InnerWord\StoreInnerWordUseCase;
 use Illuminate\Http\Request;
@@ -53,9 +54,13 @@ class InnerWordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, ShowInnerWordItemUseCase $useCase)
     {
-        //
+      $inner_word_id = $request->inner_word_id;
+
+      return $useCase
+      ? response()->json($useCase($inner_word_id), 201)
+      : response()->json([], 500);
     }
 
     /**
