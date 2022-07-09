@@ -1,108 +1,66 @@
 // ---[ import ]----------------------------------------------------------------
-import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 
 import axios from 'axios';
 
-/* contexts */
-import { UserContext } from '../contexts/UserContext';
-import { InnerWordContexts } from '../contexts/InnerWordContext';
-
-/* type */
+/* types */
 import { InnerWord } from '../type/InnerWord';
 
 /* material-ui */
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  Box,
-  Typography,
-  TextField,
-  List,
-  ListItem,
-} from '@material-ui/core';
+import {  Box, TextField } from '@material-ui/core';
+import { Typography, Accordion, AccordionDetails } from '@mui/material';
 /* material-ui icon */
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import CreateIcon from '@mui/icons-material/Create';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 // ---[ styles ]----------------------------------------------------------------
 const useStyles = makeStyles((theme) =>
   createStyles({
     // container
     container: {
-      display:                   'flex',
-      flex:                      1,
-      flexDirection:             'column',
-      padding:                   16,
-
+      display:         'flex',
+      flex:            1,
+      flexDirection:   'column',
+      padding:         16,
     },
     // container_parts
     container_innner_top: {
-      display:                   'flex',
-      flex:                      1,
-      justifyContent:            'space-between',
-      alignItems:                'center',
-      padding:                   16,
+      display:         'flex',
+      flex:            1,
+      justifyContent:  'center',
+      alignItems:      'center',
+      padding:         16,
     },
     container_innner_middle: {
-      padding:                   16,
+      padding:         16,
     },
     container_innner_bottom: {
-      display:                   'flex',
-      flexDirection:             'row-reverse',
-      marginTop :                16,
+      display:         'flex',
+      flexDirection:   'row-reverse',
+      marginTop :      16,
     },
     // container_parts_items
-    input_search: {
-      width:                     '200px',
+    innner_top_title: {
+      display:         'flex',
+      justifyContent:  'center',
+      alignItems:      'center',
+      marginBottom:    16,
+      width:           '60%',
+      fontSize:        '32px',
+      borderBottom:    '1px solid black',
     },
-    list_item: {
-      display:                   'flex',
-      flex:                      1,
-      alignItems:                'center',
-      marginBottom:              8,
+    accordion_summary: {
+      marginRight:     '16px',
+      marginLeft:      '16px'
     },
-    list_item_right: {
-      display:                   'flex',
-      flex:                      1,
-      alignItems:                'center',
-      justifyContent:            'center',
-      height:                    '64px',
-      backgroundColor:           '#fff',
-      border:                    '1px solid black',
-      borderRight:               0,
-      borderTopLeftRadius:       5,
-      borderBottomLeftRadius:    5,
+    accordion_details: {
+      margin:          '16px',
+      backgroundColor: '#f5f6f6',
     },
-    list_item_center: {
-      display:                   'flex',
-      flex:                      10,
-      justifyContent:            'space-between',
-      alignItems:                'center',
-      padding:                   8,
-      height:                    '64px',
-      backgroundColor:           '#fff',
-      border:                    '1px solid black',
-    },
-    list_item_thema_input: {
-        width:                   '100%',
-    },
-    list_item_inner_prev: {
-      display:                   'flex',
-      flex:                      1,
-      backgroundColor:           '#fff',
-      alignItems:                'center',
-      justifyContent:            'center',
-      height:                    '64px',
-      border:                    '1px solid black',
-      borderLeft:                0,
-      borderTopRightRadius:      5,
-      borderBottomRightRadius:   5,
-      "&:hover": {
-        background:              "steelblue",
-        cursor:                  'pointer',
-      },
+    accordion_detail_textfield: {
+      width:           '100%',
     },
   })
 );
@@ -110,13 +68,13 @@ const useStyles = makeStyles((theme) =>
 // ---[ process ]---------------------------------------------------------------
 export const InnerWordItemList: React.FC = () => {
   // style
-  const classes  = useStyles();
-  const navigate = useNavigate();
+  const classes = useStyles();
 
   // stateを宣言
-  const {user, setUser}             = useContext(UserContext);
+	const [innerWord, setInnerWord]   = useState<InnerWord>();
 
-  const themaId = useParams().thema_id;
+  // constrct
+  const innerWordID = useParams().inner_word_id;
 
   // 画面マウント時
   useEffect(() => {
@@ -126,13 +84,16 @@ export const InnerWordItemList: React.FC = () => {
   // 内なる言葉を取得
   const fetchInnerWords = async () => {
     try {
-      const innerWordList = await axios.get(
-        `//localhost/api/inner_words?thema_id=${themaId}`
+      const getinnerWord = await axios.get(
+        `//localhost/api/inner_words/show?inner_word_id=${innerWordID}`
       )
+
+      setInnerWord(getinnerWord.data.inner_word[0])
     } catch (error) {
       console.error(error);
     }
   };
+  console.log(innerWord?.id)
 
   // 内なる言葉の変更処理
 	const onChangeInnerWord = (
@@ -142,35 +103,120 @@ export const InnerWordItemList: React.FC = () => {
 
 	}
 
-  // 内なる言葉の詳細へ
-  const prevInnerWordDetail = (
-    input: React.ChangeEvent<any>,
-    innerWord: number
-  ) => {
-    navigate(`/inner_word/item/${themaId}`);
-  }
-
-
   // returns element
   return (
     <Box className={classes.container}>
         <Box className={classes.container_innner_top}>
-          <Typography>内なる言葉</Typography>
-          <TextField
-            id='filled-search'
-            className={classes.input_search}
-            label='検索する'
-            variant='filled'
-            InputProps={{ disableUnderline: true }}
-          />
-        </Box>
-        <Box className={classes.container_innner_middle}>
-            feature: A component of sorts will go in here.
+          <Box className={classes.innner_top_title}>
+            {innerWord?.inner_word}
+          </Box>
         </Box>
         <Box>
-          <List>
+          <Accordion defaultExpanded>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              className={classes.accordion_summary}
+              id="panel1bh-header"
+            >
+              <Typography>
+                1. それで？
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails className={classes.accordion_details}>
+              <TextField
+                id="standard-multiline-flexible"
+                defaultValue={innerWord?.so_word}
+                placeholder="内なる言葉に「それで？」と質問してみよう"
+                className={classes.accordion_detail_textfield}
+                multiline
+                maxRows={10}
+                variant="standard"
+                InputProps={{ disableUnderline: true }}
+              />
+            </AccordionDetails>
+          </Accordion>
 
-          </List>
+          <Accordion defaultExpanded>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              className={classes.accordion_summary}
+              id="panel1bh-header"
+            >
+              <Typography>
+                2. 本当に？
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails className={classes.accordion_details}>
+              <Typography>
+                <TextField
+                  id="standard-multiline-flexible"
+                  defaultValue={innerWord?.really_word}
+                  placeholder="内なる言葉に「本当に？」と質問してみよう"
+                  className={classes.accordion_detail_textfield}
+                  multiline
+                  maxRows={10}
+                  variant="standard"
+                  InputProps={{ disableUnderline: true }}
+                />
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion defaultExpanded>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              className={classes.accordion_summary}
+              id="panel1bh-header"
+            >
+              <Typography>
+                3. なぜ？
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails className={classes.accordion_details}>
+              <Typography>
+               <TextField
+                  id="standard-multiline-flexible"
+                  defaultValue={innerWord?.why_word}
+                  placeholder="内なる言葉に「なぜ？」と質問してみよう"
+                  className={classes.accordion_detail_textfield}
+                  multiline
+                  maxRows={10}
+                  variant="standard"
+                  InputProps={{ disableUnderline: true }}
+                />
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion defaultExpanded>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              className={classes.accordion_summary}
+              id="panel1bh-header"
+            >
+              <Typography>
+                ■ 外に向かう言葉を作ってみよう
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails className={classes.accordion_details}>
+              <Typography>
+                <TextField
+                  id="standard-multiline-flexible"
+                  defaultValue={innerWord?.outside_word}
+                  placeholder="「1, 2, 3」の言葉を使い外に向かう言葉を作ってみよう"
+                  className={classes.accordion_detail_textfield}
+                  multiline
+                  maxRows={15}
+                  variant="standard"
+                  InputProps={{ disableUnderline: true }}
+                />
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
         </Box>
     </Box>
   );
