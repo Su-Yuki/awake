@@ -6,8 +6,8 @@ import ReactDOM from 'react-dom';
 import { ThemaContexts } from '../contexts/ThemaContext';
 
 /* components */
-import { CreateThemaForm } from '../components/form/thema';
 import { ThemaList } from '../components/ThemaList';
+import { ThemaForm } from '../components/ThemaForm';
 
 /* type */
 import { Thema } from '../type/Thema';
@@ -35,7 +35,7 @@ export const TopScreen = () => {
   return (
     <Container className={classes.container}>
       <ThemaContexts.Provider value={{ themas, setThemas }}>
-        <CreateThemaForm />
+        <ThemaForm />
         <ThemaList />
       </ThemaContexts.Provider>
     </Container>

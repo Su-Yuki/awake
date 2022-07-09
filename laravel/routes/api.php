@@ -14,23 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// auth
+// Not authenticating
 Route::post('/register', 'App\Http\Controllers\Api\AuthController@register');
-Route::post('/login', 'App\Http\Controllers\Api\AuthController@login')->name("login");
-Route::get('/logout', 'App\Http\Controllers\Api\AuthController@logout');
+Route::post('/login',    'App\Http\Controllers\Api\AuthController@login')->name("login");
+Route::get('/logout',    'App\Http\Controllers\Api\AuthController@logout');
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
+// Authenticating route
 Route::group(['middleware' => ['auth:sanctum']], function () {
   // relation theme
-  Route::get('thema', 'App\Http\Controllers\ThemaController@index');
+  Route::get('thema',        'App\Http\Controllers\ThemaController@index');
   Route::post('thema/store', 'App\Http\Controllers\ThemaController@store');
 
-  // relation theme
-  Route::get('inner_words', 'App\Http\Controllers\InnerWordController@index');
-  Route::post('inner_words/store', 'App\Http\Controllers\InnerWordController@store');
+  // relation inner_words
+  Route::get('inner_words',             'App\Http\Controllers\InnerWordController@index');
+  Route::get('inner_words/show',        'App\Http\Controllers\InnerWordController@show');
+  Route::post('inner_words/store',      'App\Http\Controllers\InnerWordController@store');
+  Route::put('inner_words/update/{id}', 'App\Http\Controllers\InnerWordController@update');
 });
 
 Route::group(['middleware' => 'api'], function(){
