@@ -20,7 +20,7 @@ final class ShowInnerWordItemUseCase
       $inner_word = InnerWord::query()
         ->where('id', '=', $inner_word_id)
         ->orderBy('created_at', 'desc')
-        ->get();
+        ->first();
 
     return [
       'inner_word' => $inner_word,
