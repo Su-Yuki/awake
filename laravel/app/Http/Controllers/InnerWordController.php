@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\InnerWordRequest;
 use App\Models\InnerWord;
+use App\UseCase\InnerWord\ShowInnerWordItemUseCase;
 use App\UseCase\InnerWord\ShowInnerWordListUseCase;
 use App\UseCase\InnerWord\StoreInnerWordUseCase;
+use App\UseCase\InnerWord\UpdateInnerWordItemUseCase;
 use Illuminate\Http\Request;
 
 class InnerWordController extends Controller
@@ -22,16 +24,6 @@ class InnerWordController extends Controller
       return $useCase
         ? response()->json($useCase($thema_id), 201)
         : response()->json([], 500);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -53,20 +45,13 @@ class InnerWordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, ShowInnerWordItemUseCase $useCase)
     {
-        //
-    }
+      $inner_word_id = $request->inner_word_id;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+      return $useCase
+      ? response()->json($useCase($inner_word_id), 201)
+      : response()->json([], 500);
     }
 
     /**
@@ -76,9 +61,11 @@ class InnerWordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, UpdateInnerWordItemUseCase $useCase)
     {
-        //
+      $useCase($request, $id);
+
+      return response()->json(['更新成功'], 200);
     }
 
     /**

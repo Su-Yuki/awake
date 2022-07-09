@@ -12,6 +12,10 @@ class InnerWord extends Model
   protected $fillable = [
     'thema_id',
     'inner_word',
+    'so_word',
+    'really_word',
+    'why_word',
+    'outside_word',
   ];
 
   public function thema()

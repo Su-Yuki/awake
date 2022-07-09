@@ -154,9 +154,9 @@ export const InnerWordList: React.FC = () => {
   // 内なる言葉の詳細へ
   const prevInnerWordDetail = (
     input: React.ChangeEvent<any>,
-    innerWord: number
+    innerWordID: number
   ) => {
-    navigate(`/inner_word/${innerWord}`);
+    navigate(`/inner_word/item/${innerWordID}`);
   }
 
 
