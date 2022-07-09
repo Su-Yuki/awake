@@ -64,6 +64,15 @@ const useStyles = makeStyles((theme) =>
     },
   })
 );
+// ---[ types ]-----------------------------------------------------------------
+type InnerItemPram = {
+  inner_word:   string;
+	so_word:      string;
+	really_word:  string;
+  why_word:     string;
+  outside_word: string;
+}
+
 
 // ---[ process ]---------------------------------------------------------------
 export const InnerWordItemList: React.FC = () => {
@@ -71,36 +80,64 @@ export const InnerWordItemList: React.FC = () => {
   const classes = useStyles();
 
   // stateを宣言
-	const [innerWord, setInnerWord]   = useState<InnerWord>();
+  const [ItemData, setItemData]   = useState<InnerItemPram>({
+    inner_word:   '',
+    so_word:      '',
+    really_word:  '',
+    why_word:     '',
+    outside_word: '',
+  });
 
   // constrct
   const innerWordID = useParams().inner_word_id;
 
   // 画面マウント時
   useEffect(() => {
-    fetchInnerWords()
+    fetchInnerWordItem()
   }, [])
 
   // 内なる言葉を取得
-  const fetchInnerWords = async () => {
+  const fetchInnerWordItem = async () => {
     try {
       const getinnerWord = await axios.get(
         `//localhost/api/inner_words/show?inner_word_id=${innerWordID}`
       )
-
-      setInnerWord(getinnerWord.data.inner_word[0])
+      setItemData({
+        inner_word:   getinnerWord.data.inner_word.inner_word,
+        so_word:      getinnerWord.data.inner_word.so_word,
+        really_word:  getinnerWord.data.inner_word.really_word,
+        why_word:     getinnerWord.data.inner_word.why_word,
+        outside_word: getinnerWord.data.inner_word.outside_word,
+      })
     } catch (error) {
       console.error(error);
     }
   };
-  console.log(innerWord?.id)
 
   // 内なる言葉の変更処理
-	const onChangeInnerWord = (
-    input: React.ChangeEvent<any>,
-    index: any
-  ): void => {
+	const onChangeInnerWord = (input: React.ChangeEvent<any>): void => {
+		const key: keyof InnerItemPram = input.target.name;
+		const value: typeof key        = input.target.value;
+    ItemData[key]                  = value;
+		let data                       = Object.assign({}, ItemData);
 
+    setItemData(data);
+	}
+
+  // フォーカスが外れた時の処理（update）
+	const onBlurFunc = async() => {
+		// alert("aaa")
+    try {
+      await axios
+        .put(`//localhost/api/inner_words/update/${innerWordID}`, {
+          so_word:      ItemData?.so_word,
+          really_word:  ItemData?.really_word,
+          why_word:     ItemData?.why_word,
+          outside_word: ItemData?.outside_word,
+        })
+      } catch (error) {
+        console.error(error);
+      }
 	}
 
   // returns element
@@ -108,7 +145,7 @@ export const InnerWordItemList: React.FC = () => {
     <Box className={classes.container}>
         <Box className={classes.container_innner_top}>
           <Box className={classes.innner_top_title}>
-            {innerWord?.inner_word}
+            {ItemData?.inner_word}
           </Box>
         </Box>
         <Box>
@@ -125,13 +162,16 @@ export const InnerWordItemList: React.FC = () => {
             </AccordionSummary>
             <AccordionDetails className={classes.accordion_details}>
               <TextField
-                id="standard-multiline-flexible"
-                defaultValue={innerWord?.so_word}
-                placeholder="内なる言葉に「それで？」と質問してみよう"
                 className={classes.accordion_detail_textfield}
+                id="standard-multiline-flexible"
+                name='so_word'
+                defaultValue={ItemData?.so_word}
+                placeholder="内なる言葉に「それで？」と質問してみよう"
                 multiline
                 maxRows={10}
                 variant="standard"
+                onChange={onChangeInnerWord}
+                onBlur={onBlurFunc}
                 InputProps={{ disableUnderline: true }}
               />
             </AccordionDetails>
@@ -149,18 +189,21 @@ export const InnerWordItemList: React.FC = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails className={classes.accordion_details}>
-              <Typography>
+              <Box>
                 <TextField
-                  id="standard-multiline-flexible"
-                  defaultValue={innerWord?.really_word}
-                  placeholder="内なる言葉に「本当に？」と質問してみよう"
                   className={classes.accordion_detail_textfield}
+                  id="standard-multiline-flexible"
+                  name='really_word'
+                  defaultValue={ItemData?.really_word}
+                  placeholder="内なる言葉に「本当に？」と質問してみよう"
                   multiline
                   maxRows={10}
                   variant="standard"
+                  onChange={onChangeInnerWord}
+                  onBlur={onBlurFunc}
                   InputProps={{ disableUnderline: true }}
                 />
-              </Typography>
+              </Box>
             </AccordionDetails>
           </Accordion>
 
@@ -176,18 +219,19 @@ export const InnerWordItemList: React.FC = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails className={classes.accordion_details}>
-              <Typography>
-               <TextField
-                  id="standard-multiline-flexible"
-                  defaultValue={innerWord?.why_word}
-                  placeholder="内なる言葉に「なぜ？」と質問してみよう"
-                  className={classes.accordion_detail_textfield}
-                  multiline
-                  maxRows={10}
-                  variant="standard"
-                  InputProps={{ disableUnderline: true }}
-                />
-              </Typography>
+              <TextField
+                className={classes.accordion_detail_textfield}
+                id="standard-multiline-flexible"
+                name='why_word'
+                defaultValue={ItemData?.why_word}
+                placeholder="内なる言葉に「なぜ？」と質問してみよう"
+                multiline
+                maxRows={10}
+                variant="standard"
+                onChange={onChangeInnerWord}
+                onBlur={onBlurFunc}
+                InputProps={{ disableUnderline: true }}
+              />
             </AccordionDetails>
           </Accordion>
 
@@ -203,18 +247,19 @@ export const InnerWordItemList: React.FC = () => {
               </Typography>
             </AccordionSummary>
             <AccordionDetails className={classes.accordion_details}>
-              <Typography>
-                <TextField
-                  id="standard-multiline-flexible"
-                  defaultValue={innerWord?.outside_word}
-                  placeholder="「1, 2, 3」の言葉を使い外に向かう言葉を作ってみよう"
-                  className={classes.accordion_detail_textfield}
-                  multiline
-                  maxRows={15}
-                  variant="standard"
-                  InputProps={{ disableUnderline: true }}
-                />
-              </Typography>
+              <TextField
+                className={classes.accordion_detail_textfield}
+                id="standard-multiline-flexible"
+                name='outside_word'
+                defaultValue={ItemData?.outside_word}
+                placeholder="「1, 2, 3」の言葉を使い外に向かう言葉を作ってみよう"
+                multiline
+                maxRows={15}
+                variant="standard"
+                onChange={onChangeInnerWord}
+                onBlur={onBlurFunc}
+                InputProps={{ disableUnderline: true }}
+              />
             </AccordionDetails>
           </Accordion>
         </Box>
