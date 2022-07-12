@@ -46,13 +46,13 @@ const useStyles = makeStyles((theme) =>
 // ---[ styles ]----------------------------------------------------------------
 export const InnerWordItemHeader = () => {
   // style
-  const classes     = useStyles();
-  const innerWordID = useParams().inner_word_id;
+  const classes = useStyles();
+  const themaId = useParams().thema_id;
 
   return (
     <Container className={classes.container}>
       <Box className={classes.left_container}>
-        <Link to={`inner_word/${innerWordID}`}>戻る</Link>
+        <Link to={`//localhost/inner_word/${themaId}`}>戻る</Link>
       </Box>
       <Box className={classes.center_container}>
         <Typography

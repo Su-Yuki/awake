@@ -128,7 +128,7 @@ export const InnerWordItemList: React.FC = () => {
 	const onBlurFunc = async() => {
     try {
       await axios
-        .put(`//localhost/api/inner_words/update/${innerWordID}`, {
+        .put(`//localhost/api/inner_words/update_item/${innerWordID}`, {
           so_word:      ItemData?.so_word,
           really_word:  ItemData?.really_word,
           why_word:     ItemData?.why_word,
