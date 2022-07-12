@@ -126,7 +126,6 @@ export const InnerWordItemList: React.FC = () => {
 
   // フォーカスが外れた時の処理（update）
 	const onBlurFunc = async() => {
-		// alert("aaa")
     try {
       await axios
         .put(`//localhost/api/inner_words/update/${innerWordID}`, {
