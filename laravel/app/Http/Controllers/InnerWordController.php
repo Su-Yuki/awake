@@ -8,6 +8,7 @@ use App\UseCase\InnerWord\ShowInnerWordItemUseCase;
 use App\UseCase\InnerWord\ShowInnerWordListUseCase;
 use App\UseCase\InnerWord\StoreInnerWordUseCase;
 use App\UseCase\InnerWord\UpdateInnerWordItemUseCase;
+use App\UseCase\InnerWord\UpdateInnerWordTitleUseCase;
 use Illuminate\Http\Request;
 
 class InnerWordController extends Controller
@@ -35,8 +36,8 @@ class InnerWordController extends Controller
     public function store(InnerWordRequest $request, StoreInnerWordUseCase $useCase)
     {
       return $useCase
-      ? response()->json($useCase($request), 201)
-      : response()->json([], 500);
+        ? response()->json($useCase($request), 201)
+        : response()->json([], 500);
     }
 
     /**
@@ -50,8 +51,8 @@ class InnerWordController extends Controller
       $inner_word_id = $request->inner_word_id;
 
       return $useCase
-      ? response()->json($useCase($inner_word_id), 201)
-      : response()->json([], 500);
+        ? response()->json($useCase($inner_word_id), 201)
+        : response()->json([], 500);
     }
 
     /**
@@ -61,7 +62,21 @@ class InnerWordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, UpdateInnerWordItemUseCase $useCase)
+    public function update_title(Request $request, $id, UpdateInnerWordTitleUseCase $useCase)
+    {
+      $useCase($request, $id);
+
+      return response()->json(['更新成功'], 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_item(Request $request, $id, UpdateInnerWordItemUseCase $useCase)
     {
       $useCase($request, $id);
 
