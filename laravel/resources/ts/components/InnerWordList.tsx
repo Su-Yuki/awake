@@ -151,12 +151,23 @@ export const InnerWordList: React.FC = () => {
     // feature update api logic
 	}
 
+  // フォーカスが外れた時の処理（update）
+	const onBlurFunc = async(id: number, inner_word: string) => {
+    try {
+      await axios
+        .put(`//localhost/api/inner_words/update_title/${id}`, {
+          inner_word: inner_word
+        })
+      } catch (error) {
+        console.error(error);
+      }
+	}
+
   // 内なる言葉の詳細へ
   const prevInnerWordDetail = (
-    input: React.ChangeEvent<any>,
     innerWordID: number
   ) => {
-    navigate(`/inner_word/item/${innerWordID}`);
+    navigate(`/inner_word/${themaId}/item/${innerWordID}`);
   }
 
 
@@ -194,12 +205,15 @@ export const InnerWordList: React.FC = () => {
                       InputProps={{ disableUnderline: true }}
                       value={innerWord.inner_word}
                       onChange={(e) => (onChangeInnerWord(e, index))}
+                      onBlur={() => (
+                        onBlurFunc(innerWord.id, innerWord.inner_word)
+                      )}
                     />
                     <MoreHorizIcon />
                   </Box>
                   <Box
                     className={classes.list_item_inner_prev}
-                    onClick={(e) => (prevInnerWordDetail(e, innerWord.id))}
+                    onClick={() => (prevInnerWordDetail(innerWord.id))}
                   >
                     <CreateIcon />
                   </Box>

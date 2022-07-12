@@ -1,6 +1,6 @@
 // ---[ import ]----------------------------------------------------------------
 import React from 'react';
-import {Link, Routes, Route, useNavigate} from 'react-router-dom';
+import {Link, useParams } from 'react-router-dom';
 
 
 /* material-ui */
@@ -47,11 +47,12 @@ const useStyles = makeStyles((theme) =>
 export const InnerWordItemHeader = () => {
   // style
   const classes = useStyles();
+  const themaId = useParams().thema_id;
 
   return (
     <Container className={classes.container}>
       <Box className={classes.left_container}>
-        <Link to="/">戻る</Link>
+        <Link to={`//localhost/inner_word/${themaId}`}>戻る</Link>
       </Box>
       <Box className={classes.center_container}>
         <Typography
