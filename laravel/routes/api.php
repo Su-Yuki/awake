@@ -26,10 +26,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('thema/store', 'App\Http\Controllers\ThemaController@store');
 
   // relation inner_words
-  Route::get('inner_words',             'App\Http\Controllers\InnerWordController@index');
-  Route::get('inner_words/show',        'App\Http\Controllers\InnerWordController@show');
-  Route::post('inner_words/store',      'App\Http\Controllers\InnerWordController@store');
-  Route::put('inner_words/update/{id}', 'App\Http\Controllers\InnerWordController@update');
+  Route::get('inner_words',                   'App\Http\Controllers\InnerWordController@index');
+  Route::get('inner_words/show',              'App\Http\Controllers\InnerWordController@show');
+  Route::post('inner_words/store',            'App\Http\Controllers\InnerWordController@store');
+  Route::put('inner_words/update_title/{id}', 'App\Http\Controllers\InnerWordController@update_title');
+  Route::put('inner_words/update_item/{id}',  'App\Http\Controllers\InnerWordController@update_item');
 });
 
 Route::group(['middleware' => 'api'], function(){
