@@ -146,6 +146,7 @@ export const ThemaList: React.FC = () => {
         : obj
       ))
     )
+    // feature update api logic
 	}
 
   const prevInnerWord = (
@@ -154,18 +155,6 @@ export const ThemaList: React.FC = () => {
   ) => {
     navigate(`/inner_word/${thema_id}`);
   }
-
-  // フォーカスが外れた時の処理（update）
-	const onBlurFunc = async(id: number, thema: string) => {
-    try {
-      await axios
-        .put(`//localhost/api/thema/update/${id}`, {
-          thema: thema
-        })
-    } catch (error) {
-      console.error(error);
-    }
-	}
 
   return (
     <>
@@ -201,9 +190,6 @@ export const ThemaList: React.FC = () => {
                         InputProps={{ disableUnderline: true }}
                         value={thema.thema}
                         onChange={(e) => (onChangeThema(e, index))}
-                        onBlur={() => (
-                          onBlurFunc(thema.id, thema.thema)
-                        )}
                         />
                       <MoreHorizIcon />
                     </Box>

@@ -22,9 +22,8 @@ Route::get('/logout',    'App\Http\Controllers\Api\AuthController@logout');
 // Authenticating route
 Route::group(['middleware' => ['auth:sanctum']], function () {
   // relation theme
-  Route::get('thema',             'App\Http\Controllers\ThemaController@index');
-  Route::post('thema/store',      'App\Http\Controllers\ThemaController@store');
-  Route::put('thema/update/{id}', 'App\Http\Controllers\ThemaController@update');
+  Route::get('thema',        'App\Http\Controllers\ThemaController@index');
+  Route::post('thema/store', 'App\Http\Controllers\ThemaController@store');
 
   // relation inner_words
   Route::get('inner_words',                   'App\Http\Controllers\InnerWordController@index');

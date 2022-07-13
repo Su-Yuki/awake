@@ -6,7 +6,6 @@ use App\Http\Requests\ThemaRequest;
 use App\Models\Thema;
 use App\UseCase\Thema\ShowThemaListUseCase;
 use App\UseCase\Thema\StoreThemaUseCase;
-use App\UseCase\Thema\UpdateThemaUseCase;
 use Illuminate\Http\Request;
 
 class ThemaController extends Controller
@@ -24,6 +23,16 @@ class ThemaController extends Controller
     return $useCase
       ? response()->json($useCase($user_id), 201)
       : response()->json([], 500);
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+
   }
 
   /**
@@ -47,7 +56,18 @@ class ThemaController extends Controller
    */
   public function show($id)
   {
+      //
+  }
 
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function edit($id)
+  {
+      //
   }
 
   /**
@@ -57,11 +77,9 @@ class ThemaController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id, UpdateThemaUseCase $useCase)
+  public function update(Request $request, $id)
   {
-    $useCase($request, $id);
-
-    return response()->json(['更新成功'], 200);
+      //
   }
 
   /**
