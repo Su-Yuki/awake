@@ -1,12 +1,15 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useEffect, useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
 /* contexts */
 import { UserContext } from '../contexts/UserContext';
 import { ThemaContexts } from '../contexts/ThemaContext';
+
+/* components */
+import { ThemaListMenu } from '../components/ThemaListMenu';
 
 /* type */
 import { User } from '../type/User';
@@ -23,7 +26,6 @@ import {
 } from '@material-ui/core';
 /* material-ui icon */
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 // ---[ styles ]----------------------------------------------------------------
@@ -99,8 +101,8 @@ const useStyles = makeStyles((theme) =>
       borderLeft:                0,
       borderTopRightRadius:      5,
       borderBottomRightRadius:   5,
-      "&:hover": {
-        background:              "steelblue",
+      '&:hover': {
+        background:              'steelblue',
         cursor:                  'pointer',
       },
     },
@@ -109,15 +111,13 @@ const useStyles = makeStyles((theme) =>
 
 // ---[ process ]---------------------------------------------------------------
 export const ThemaList: React.FC = () => {
-  // style
-  const classes  = useStyles();
-  const navigate = useNavigate();
-
   // state
   const {user, setUser}     = useContext(UserContext);
   const {themas, setThemas} = useContext(ThemaContexts);
 
-  const userId = user?.userId;
+  const classes  = useStyles();
+  const userId   = user?.userId;
+  const navigate = useNavigate();
 
   // effect
   useEffect(() => {
@@ -134,27 +134,6 @@ export const ThemaList: React.FC = () => {
     }
   };
 
-  // update Thema
-	const onChangeThema = (
-    input: React.ChangeEvent<any>,
-    index: any
-  ): void => {
-    setThemas(
-      themas.map((obj, objIndex) => (
-        index === objIndex
-        ? {...obj, thema: input.target.value}
-        : obj
-      ))
-    )
-	}
-
-  const prevInnerWord = (
-    input: React.ChangeEvent<any>,
-    thema_id: number
-  ) => {
-    navigate(`/inner_word/${thema_id}`);
-  }
-
   // フォーカスが外れた時の処理（update）
 	const onBlurFunc = async(id: number, thema: string) => {
     try {
@@ -166,6 +145,27 @@ export const ThemaList: React.FC = () => {
       console.error(error);
     }
 	}
+
+  // update Thema
+	const onChangeThema = (
+    input: React.ChangeEvent<any>,
+    index: number
+  ): void => {
+    setThemas(
+      themas.map((obj, objIndex) => (
+        index === objIndex
+          ? {...obj, thema: input.target.value}
+          : obj
+      ))
+    )
+	}
+
+  const prevInnerWord = (
+    input: React.ChangeEvent<any>,
+    thema_id: number
+  ) => {
+    navigate(`/inner_word/${thema_id}`);
+  }
 
   return (
     <>
@@ -201,11 +201,9 @@ export const ThemaList: React.FC = () => {
                         InputProps={{ disableUnderline: true }}
                         value={thema.thema}
                         onChange={(e) => (onChangeThema(e, index))}
-                        onBlur={() => (
-                          onBlurFunc(thema.id, thema.thema)
-                        )}
-                        />
-                      <MoreHorizIcon />
+                        onBlur={() => (onBlurFunc(thema.id, thema.thema))}
+                      />
+                      <ThemaListMenu data={thema} index={index} />
                     </Box>
                     <Box
                       className={classes.list_item_inner_prev}
