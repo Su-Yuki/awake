@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ThemaRequest;
 use App\Models\Thema;
+use App\UseCase\Thema\DeleteThemaUseCase;
 use App\UseCase\Thema\ShowThemaListUseCase;
 use App\UseCase\Thema\StoreThemaUseCase;
 use App\UseCase\Thema\UpdateThemaUseCase;
@@ -70,8 +71,10 @@ class ThemaController extends Controller
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function destroy($id)
+  public function destroy($id, DeleteThemaUseCase $useCase)
   {
-      //
+    $useCase($id);
+
+    return response()->json(['削除成功'], 200);
   }
 }
