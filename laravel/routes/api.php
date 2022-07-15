@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::get('thema',                'App\Http\Controllers\ThemaController@index');
   Route::post('thema/store',         'App\Http\Controllers\ThemaController@store');
   Route::put('thema/update/{id}',    'App\Http\Controllers\ThemaController@update');
-  // Route::delete('thema/delete/{id}', 'App\Http\Controllers\ThemaController@destroy');
+  Route::delete('thema/delete/{id}', 'App\Http\Controllers\ThemaController@destroy');
 
   // relation inner_words
   Route::get('inner_words',                   'App\Http\Controllers\InnerWordController@index');
@@ -36,5 +36,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 Route::group(['middleware' => 'api'], function(){
-  Route::delete('thema/delete/{id}', 'App\Http\Controllers\ThemaController@destroy');
+
 });
