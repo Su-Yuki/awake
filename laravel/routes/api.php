@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('inner_words/store',            'App\Http\Controllers\InnerWordController@store');
   Route::put('inner_words/update_title/{id}', 'App\Http\Controllers\InnerWordController@update_title');
   Route::put('inner_words/update_item/{id}',  'App\Http\Controllers\InnerWordController@update_item');
+  Route::delete('inner_words/delete/{id}',    'App\Http\Controllers\InnerWordController@destroy');
 });
 
 Route::group(['middleware' => 'api'], function(){

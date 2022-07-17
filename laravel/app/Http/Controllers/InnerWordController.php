@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\InnerWordRequest;
 use App\Models\InnerWord;
+use App\UseCase\InnerWord\DeleteInnerWordUseCase;
 use App\UseCase\InnerWord\ShowInnerWordItemUseCase;
 use App\UseCase\InnerWord\ShowInnerWordListUseCase;
 use App\UseCase\InnerWord\StoreInnerWordUseCase;
@@ -89,8 +90,10 @@ class InnerWordController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, DeleteInnerWordUseCase $useCase)
     {
-        //
+      $useCase($id);
+
+      return response()->json(['削除成功'], 200);
     }
 }
