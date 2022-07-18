@@ -127,7 +127,7 @@ export const ThemaList: React.FC = () => {
   // get themaList
   const fetchThemas = async () => {
     try {
-      const themas = await axios.get(`api/thema?id=${userId}`)
+      const themas = await axios.get(`api/thema`)
       setThemas(themas.data.thema);
     } catch (error) {
       console.error(error);
