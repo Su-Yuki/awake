@@ -9,6 +9,7 @@ use App\UseCase\Thema\ShowThemaListUseCase;
 use App\UseCase\Thema\StoreThemaUseCase;
 use App\UseCase\Thema\UpdateThemaUseCase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ThemaController extends Controller
 {
@@ -17,10 +18,10 @@ class ThemaController extends Controller
    *
    * @return
    */
-  public function index(Request $request, ShowThemaListUseCase $useCase)
+  public function index(ShowThemaListUseCase $useCase)
   {
     // ユーザID
-    $user_id = $request->id;
+    $user_id = Auth::id();
 
     return $useCase
       ? response()->json($useCase($user_id), 201)
