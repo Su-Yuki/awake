@@ -7,6 +7,7 @@ import axios from 'axios';
 
 /* contexts */
 import { UserContext } from '../contexts/UserContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 /* type */
 import { User } from '../type/User';
@@ -93,6 +94,7 @@ export const LoginScreen = () => {
 
   // state
   const {user, setUser}                 = useContext(UserContext);
+  const {auth, setAuth}                 = useContext(AuthContext);
   const [formData, setFormData]         = useState<LoginPram>({email: '', password: ''});
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
 
@@ -107,12 +109,10 @@ export const LoginScreen = () => {
             if(res.data.status === 200){
               // Anset form
               setFormData({email: '', password: ''});
-              // Set user
-              setUser({userId: res.data.userId, name: res.data.userName});
-              // local strage
-              localStorage.setItem('loginUser', JSON.stringify(
-                {userId: res.data.userId, name: res.data.userName}
-              ));
+              // Set auth
+              setAuth(true);
+              // Set local strage(Autologin)
+              localStorage.setItem('login_check', 'true');
             } else {
               setErrorMessage(res.data.message)
             }

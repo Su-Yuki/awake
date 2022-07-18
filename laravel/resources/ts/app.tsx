@@ -1,9 +1,10 @@
 // ---[ import ]----------------------------------------------------------------
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 
 /* contexts */
 import { UserContext } from './contexts/UserContext';
+import { AuthContext } from './contexts/AuthContext';
 
 /* type */
 import { User } from './type/User';
@@ -34,21 +35,25 @@ export default function App() {
   // style
   const classes = useStyles();
 
-  const [user, setUser]     = useState<User | null>(null);
+  const {user, setUser} = useContext(UserContext);
+  const [auth, setAuth] = useState(false);
+
+  // auto login
+  function toBoolean (loginCheck: string) {
+    return loginCheck.toLowerCase() === 'true';
+  }
 
   useEffect(() => {
-    if (localStorage.getItem("loginUser")){
-      const userStrageText: any    = localStorage.getItem('loginUser')
-      const loginUser: User | null = JSON.parse(userStrageText)
-
-      setUser(loginUser)
+    if (localStorage.getItem("login_check")){
+      const value = toBoolean(localStorage.getItem('login_check')!);
+      setAuth(value);
     }
-  }, [])
+  }, []);
 
   return (
     <Container className={classes.container}>
       <UserContext.Provider value={{user, setUser}}>
-        {!user ? <NotLoginRouter /> : <LoggedRouter />}
+        {auth ? <LoggedRouter /> : <NotLoginRouter />}
       </UserContext.Provider>
     </Container>
   );
