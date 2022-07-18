@@ -13,10 +13,6 @@ import { User } from './type/User';
 import { NotLoginRouter } from './routes/NotLoginRouter';
 import { LoggedRouter } from './routes/LoggedRouter';
 
-/* screens */
-import { TopScreen } from './screens/TopScreen';
-import { WelcomeScreen } from './screens/WelcomeScreen';
-
 /* material-ui */
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
@@ -48,13 +44,15 @@ export default function App() {
       const value = toBoolean(localStorage.getItem('login_check')!);
       setAuth(value);
     }
-  }, []);
+  }, [AuthContext]);
 
   return (
     <Container className={classes.container}>
-      <UserContext.Provider value={{user, setUser}}>
-        {auth ? <LoggedRouter /> : <NotLoginRouter />}
-      </UserContext.Provider>
+      <AuthContext.Provider value={{auth, setAuth}}>
+        <UserContext.Provider value={{user, setUser}}>
+          {auth ? <LoggedRouter /> : <NotLoginRouter />}
+        </UserContext.Provider>
+      </AuthContext.Provider>
     </Container>
   );
 }

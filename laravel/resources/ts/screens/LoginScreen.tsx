@@ -1,6 +1,6 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useEffect, useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 import axios from 'axios';
@@ -78,6 +78,10 @@ const useStyles = makeStyles((theme) =>
       color:                 '#a94442',
       backgroundColor:       '#ebccd1',
 		},
+    nav_link: {
+      textDecoration:        'none',
+      color:                 'blue',
+    }
   })
 );
 
@@ -109,20 +113,21 @@ export const LoginScreen = () => {
             if(res.data.status === 200){
               // Anset form
               setFormData({email: '', password: ''});
-              // Set auth
-              setAuth(true);
               // Set local strage(Autologin)
               localStorage.setItem('login_check', 'true');
+              // redirect
+              navigate('/', { replace: true });
+              // Set auth
+              setAuth(true);
             } else {
               setErrorMessage(res.data.message)
             }
           })
           .catch(error => {
             console.log(error);
-            setErrorMessage(['ログインに失敗しました'])
+            setErrorMessage(['ログインに失敗しました']);
           });
         })
-      navigate('/');
     } catch (error) {
       console.error(error);
     }
@@ -193,7 +198,8 @@ export const LoginScreen = () => {
             className={classes.container_item_navigate}
             component='p'
           >
-            アカウントをお持ちでない方は登録
+            アカウントをお持ちでない方は
+            <Link className={classes.nav_link} to="/register">登録</Link>
           </Box>
         </Box>
       </Container>

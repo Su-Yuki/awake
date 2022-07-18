@@ -1,6 +1,6 @@
 // ---[ import ]----------------------------------------------------------------
-import React, { useEffect, useState, useContext } from 'react';
-
+import React, { useState, useContext } from 'react';
+import { useNavigate, Link } from "react-router-dom";
 
 import axios from 'axios';
 
@@ -78,6 +78,10 @@ const useStyles = makeStyles((theme) =>
       color:                 '#a94442',
       backgroundColor:       '#ebccd1',
 		},
+    nav_link: {
+      textDecoration:        'none',
+      color:                 'blue',
+    }
   })
 );
 
@@ -90,7 +94,8 @@ type RegisterPram = {
 
 // ---[ process ]---------------------------------------------------------------
 export const RegisterScreen = () => {
-  const classes = useStyles();
+  const classes  = useStyles();
+  const navigate = useNavigate();
 
   // state
   const {user, setUser}         = useContext(UserContext);
@@ -120,10 +125,12 @@ export const RegisterScreen = () => {
                 if(res.data.status === 200){
                   // Anset form
                   setFormData({registerName: '', email: '', password: ''});
-                  // Set auth
-                  setAuth(true);
                   // Set local strage(Autologin)
                   localStorage.setItem('login_check', 'true');
+                  // redirect
+                  navigate('/', { replace: true });
+                  // Set auth
+                  setAuth(true);
                 } else {
                   setErrorMessage(res.data.message)
                 }
@@ -219,7 +226,9 @@ export const RegisterScreen = () => {
             className={classes.container_item_navigate}
             component='p'
           >
-            アカウントをお持ちの方はログインしてください
+            アカウントをお持ちの方は
+            <Link className={classes.nav_link} to="/login">ログイン</Link>
+            してください
           </Box>
         </Box>
       </Container>
