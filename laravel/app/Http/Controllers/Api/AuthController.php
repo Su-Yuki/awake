@@ -18,6 +18,25 @@ class AuthController extends Controller
      *
      * @return Response
      */
+    public function getUser(Request $request){
+      $user = Auth::user();
+
+      return response()->json([
+        'status'       => 200,
+        'userId'       => $user->id,
+        'username'     => $user->name,
+        'message'      => ['ユーザの取得に成功しました。']
+      ], 200);
+    }
+
+
+    /**
+     * register
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return Response
+     */
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
           'registerName' => ['required', 'max:100'],

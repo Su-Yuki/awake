@@ -21,6 +21,9 @@ Route::get('/logout',    'App\Http\Controllers\Api\AuthController@logout');
 
 // Authenticating route
 Route::group(['middleware' => ['auth:sanctum']], function () {
+  // Set User
+  Route::get('user',  'App\Http\Controllers\Api\AuthController@getUser');
+
   // relation theme
   Route::get('thema',                'App\Http\Controllers\ThemaController@index');
   Route::post('thema/store',         'App\Http\Controllers\ThemaController@store');

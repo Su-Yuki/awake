@@ -9,6 +9,9 @@ import { AuthContext } from './contexts/AuthContext';
 /* type */
 import { User } from './type/User';
 
+/* lib */
+import { getUser } from './lib/Api';
+
 /* routes */
 import { NotLoginRouter } from './routes/NotLoginRouter';
 import { LoggedRouter } from './routes/LoggedRouter';
@@ -31,7 +34,7 @@ export default function App() {
   // style
   const classes = useStyles();
 
-  const {user, setUser} = useContext(UserContext);
+  const [user, setUser] = useState<User | null>(null);
   const [auth, setAuth] = useState(false);
 
   // auto login
@@ -39,12 +42,19 @@ export default function App() {
     return loginCheck.toLowerCase() === 'true';
   }
 
+  const getLoginUser = async() => {
+    const reviewDocRef = await getUser();
+    setUser({userId: reviewDocRef.userId, name: reviewDocRef.userName});
+  }
+
   useEffect(() => {
     if (localStorage.getItem("login_check")){
       const value = toBoolean(localStorage.getItem('login_check')!);
+
       setAuth(value);
+      getLoginUser();
     }
-  }, [AuthContext]);
+  }, []);
 
   return (
     <Container className={classes.container}>

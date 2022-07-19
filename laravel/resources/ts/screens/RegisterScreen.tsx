@@ -125,6 +125,8 @@ export const RegisterScreen = () => {
                 if(res.data.status === 200){
                   // Anset form
                   setFormData({registerName: '', email: '', password: ''});
+                  // Set user
+                  setUser({userId: res.data.userId, name: res.data.userName});
                   // Set local strage(Autologin)
                   localStorage.setItem('login_check', 'true');
                   // redirect

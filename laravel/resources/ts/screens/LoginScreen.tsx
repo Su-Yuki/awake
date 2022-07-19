@@ -113,6 +113,8 @@ export const LoginScreen = () => {
             if(res.data.status === 200){
               // Anset form
               setFormData({email: '', password: ''});
+              // Set user
+              setUser({userId: res.data.userId, name: res.data.userName});
               // Set local strage(Autologin)
               localStorage.setItem('login_check', 'true');
               // redirect
