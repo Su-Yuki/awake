@@ -104,7 +104,7 @@ export const ThemaForm: React.FC = () => {
 
 	return (
 		<>
-      <form className={classes.container} method='post'>
+      <form className={classes.container}>
         <TextField
           className={classes.input_thema}
           label='テーマを入力してください'
@@ -112,6 +112,13 @@ export const ThemaForm: React.FC = () => {
           onChange={inputChangeForm}
           value={themaName}
           name='thema'
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
+              // エンターキー押下時の処理
+              themaPost()
+              e.preventDefault();
+            }
+          }}
         />
         <Box className={classes.container_innner_bottom}>
         <Button

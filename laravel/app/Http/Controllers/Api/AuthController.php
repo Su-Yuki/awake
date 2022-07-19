@@ -29,7 +29,6 @@ class AuthController extends Controller
       ], 200);
     }
 
-
     /**
      * register
      *

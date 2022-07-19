@@ -113,6 +113,14 @@ export const InnerWordForm: React.FC = () => {
           onChange={inputChangeForm}
           value={innerWord}
           name='innerWord'
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
+              // エンターキー押下時の処理
+              innerWordPost()
+              e.preventDefault();
+            }
+          }}
+
         />
         <Box className={classes.container_innner_bottom}>
         <Button
