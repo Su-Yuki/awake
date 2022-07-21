@@ -35,11 +35,11 @@ export const listTheme = async() => {
 }
 
 // テーマの新規作成
-export const storeTheme = async(user_id: number | string | undefined, themaName: string) => {
+export const storeTheme = async(userId: number | string | undefined, themaName: string) => {
   try {
     const theme = await axios
       .post('api/thema/store', {
-        user_id: user_id,
+        user_id: userId,
         thema:   themaName
       })
       .then((res) => {

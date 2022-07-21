@@ -34,7 +34,7 @@ export default function App() {
   // style
   const classes = useStyles();
 
-  const {user, setUser} = useContext(UserContext);
+  const [user, setUser] = useState<User | null>(null);
   const [auth, setAuth] = useState(false);
 
   // auto login
