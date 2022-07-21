@@ -2,17 +2,16 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
-
 /* contexts */
-import { UserContext } from '../contexts/UserContext';
 import { ThemaContexts } from '../contexts/ThemaContext';
 
 /* components */
 import { ThemaListMenu } from '../components/ThemaListMenu';
 
+/* lib */
+import { listTheme, updateTheme } from '../lib/Api';
+
 /* type */
-import { User } from '../type/User';
 import { Thema } from '../type/Thema';
 
 /* material-ui */
@@ -112,41 +111,29 @@ const useStyles = makeStyles((theme) =>
 // ---[ process ]---------------------------------------------------------------
 export const ThemaList: React.FC = () => {
   // state
-  const {user, setUser}     = useContext(UserContext);
   const {themas, setThemas} = useContext(ThemaContexts);
 
   const classes  = useStyles();
-  const userId   = user?.userId;
   const navigate = useNavigate();
 
-  // effect
   useEffect(() => {
     fetchThemas()
   }, [])
 
-  // get themaList
+  /* Api logic */
+  // テーマの取得(Top表示)
   const fetchThemas = async () => {
-    try {
-      const themas = await axios.get(`api/thema`)
-      setThemas(themas.data.thema);
-    } catch (error) {
-      console.error(error);
-    }
+    const listThemeDocRef = await listTheme();
+    setThemas(listThemeDocRef.thema);
   };
 
   // フォーカスが外れた時の処理（update）
 	const onBlurFunc = async(id: number, thema: string) => {
-    try {
-      await axios
-        .put(`//localhost/api/thema/update/${id}`, {
-          thema: thema
-        })
-    } catch (error) {
-      console.error(error);
-    }
+    await updateTheme(id, thema);
 	}
 
-  // update Thema
+  /* Components logic */
+  // テーマリストstateのアップデート
 	const onChangeThema = (
     input: React.ChangeEvent<any>,
     index: number
@@ -160,10 +147,8 @@ export const ThemaList: React.FC = () => {
     )
 	}
 
-  const prevInnerWord = (
-    input: React.ChangeEvent<any>,
-    thema_id: number
-  ) => {
+  // 内なる言葉へ遷移
+  const prevInnerWord = (thema_id: number) => {
     navigate(`/inner_word/${thema_id}`);
   }
 
@@ -207,7 +192,7 @@ export const ThemaList: React.FC = () => {
                     </Box>
                     <Box
                       className={classes.list_item_inner_prev}
-                      onClick={(e) => (prevInnerWord(e, thema.id))}
+                      onClick={() => (prevInnerWord(thema.id))}
                     >
                       <NavigateNextIcon />
                     </Box>

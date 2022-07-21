@@ -43,8 +43,8 @@ export default function App() {
   }
 
   const getLoginUser = async() => {
-    const reviewDocRef = await getUser();
-    setUser({userId: reviewDocRef.userId, name: reviewDocRef.userName});
+    const getLoginDocRef = await getUser();
+    setUser({userId: getLoginDocRef.userId, name: getLoginDocRef.userName});
   }
 
   useEffect(() => {
