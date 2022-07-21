@@ -15,28 +15,28 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Not authenticating
-Route::post('/register', 'App\Http\Controllers\Api\AuthController@register');
-Route::post('/login',    'App\Http\Controllers\Api\AuthController@login')->name("login");
-Route::get('/logout',    'App\Http\Controllers\Api\AuthController@logout');
+Route::post('/register', 'AuthController@register');
+Route::post('/login',    'AuthController@login')->name("login");
+Route::get('/logout',    'AuthController@logout');
 
 // Authenticating route
 Route::group(['middleware' => ['auth:sanctum']], function () {
   // Set User
-  Route::get('user',  'App\Http\Controllers\Api\AuthController@getUser');
+  Route::get('user', 'AuthController@getUser');
 
   // relation theme
-  Route::get('thema',                'App\Http\Controllers\ThemaController@index');
-  Route::post('thema/store',         'App\Http\Controllers\ThemaController@store');
-  Route::put('thema/update/{id}',    'App\Http\Controllers\ThemaController@update');
-  Route::delete('thema/delete/{id}', 'App\Http\Controllers\ThemaController@destroy');
+  Route::get('thema',                'ThemaController@index');
+  Route::post('thema/store',         'ThemaController@store');
+  Route::put('thema/update/{id}',    'ThemaController@update');
+  Route::delete('thema/delete/{id}', 'ThemaController@destroy');
 
   // relation inner_words
-  Route::get('inner_words',                   'App\Http\Controllers\InnerWordController@index');
-  Route::get('inner_words/show',              'App\Http\Controllers\InnerWordController@show');
-  Route::post('inner_words/store',            'App\Http\Controllers\InnerWordController@store');
-  Route::put('inner_words/update_title/{id}', 'App\Http\Controllers\InnerWordController@update_title');
-  Route::put('inner_words/update_item/{id}',  'App\Http\Controllers\InnerWordController@update_item');
-  Route::delete('inner_words/delete/{id}',    'App\Http\Controllers\InnerWordController@destroy');
+  Route::get('inner_words',                   'InnerWordController@index');
+  Route::get('inner_words/show',              'InnerWordController@show');
+  Route::post('inner_words/store',            'InnerWordController@store');
+  Route::put('inner_words/update_title/{id}', 'InnerWordController@update_title');
+  Route::put('inner_words/update_item/{id}',  'InnerWordController@update_item');
+  Route::delete('inner_words/delete/{id}',    'InnerWordController@destroy');
 });
 
 Route::group(['middleware' => 'api'], function(){

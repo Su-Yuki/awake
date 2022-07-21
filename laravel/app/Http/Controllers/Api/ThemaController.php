@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ThemaRequest;
 use App\Models\Thema;
 use App\UseCase\Thema\DeleteThemaUseCase;
