@@ -1,11 +1,12 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-import axios from 'axios';
+/* lib */
+import { listInnerWordItem, updateInnerWordItem } from '../lib/Api';
 
 /* types */
-import { InnerWord } from '../type/InnerWord';
+import { InnerWord, InnerItemPram } from '../type/InnerWord';
 
 /* material-ui */
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -64,32 +65,21 @@ const useStyles = makeStyles((theme) =>
     },
   })
 );
-// ---[ types ]-----------------------------------------------------------------
-type InnerItemPram = {
-  inner_word:   string;
-	so_word:      string;
-	really_word:  string;
-  why_word:     string;
-  outside_word: string;
-}
-
 
 // ---[ process ]---------------------------------------------------------------
 export const InnerWordItemList: React.FC = () => {
-  // style
-  const classes = useStyles();
+  // constrct
+  const classes     = useStyles();
+  const innerWordID = useParams().inner_word_id;
 
   // stateを宣言
-  const [ItemData, setItemData]   = useState<InnerItemPram>({
+  const [ItemData, setItemData] = useState<InnerItemPram>({
     inner_word:   '',
     so_word:      '',
     really_word:  '',
     why_word:     '',
     outside_word: '',
   });
-
-  // constrct
-  const innerWordID = useParams().inner_word_id;
 
   // 画面マウント時
   useEffect(() => {
@@ -98,21 +88,21 @@ export const InnerWordItemList: React.FC = () => {
 
   // 内なる言葉を取得
   const fetchInnerWordItem = async () => {
-    try {
-      const getinnerWord = await axios.get(
-        `//localhost/api/inner_words/show?inner_word_id=${innerWordID}`
-      )
-      setItemData({
-        inner_word:   getinnerWord.data.inner_word.inner_word,
-        so_word:      getinnerWord.data.inner_word.so_word,
-        really_word:  getinnerWord.data.inner_word.really_word,
-        why_word:     getinnerWord.data.inner_word.why_word,
-        outside_word: getinnerWord.data.inner_word.outside_word,
-      })
-    } catch (error) {
-      console.error(error);
-    }
+    const listInnerWordDocRef = await listInnerWordItem(innerWordID);
+
+    setItemData({
+      inner_word:   listInnerWordDocRef.inner_word,
+      so_word:      listInnerWordDocRef.so_word,
+      really_word:  listInnerWordDocRef.really_word,
+      why_word:     listInnerWordDocRef.why_word,
+      outside_word: listInnerWordDocRef.outside_word,
+    })
   };
+
+  // フォーカスが外れた時の処理（update）
+	const onBlurFunc = async() => {
+    await updateInnerWordItem(innerWordID, ItemData);
+	}
 
   // 内なる言葉の変更処理
 	const onChangeInnerWord = (input: React.ChangeEvent<any>): void => {
@@ -122,21 +112,6 @@ export const InnerWordItemList: React.FC = () => {
 		let data                       = Object.assign({}, ItemData);
 
     setItemData(data);
-	}
-
-  // フォーカスが外れた時の処理（update）
-	const onBlurFunc = async() => {
-    try {
-      await axios
-        .put(`//localhost/api/inner_words/update_item/${innerWordID}`, {
-          so_word:      ItemData?.so_word,
-          really_word:  ItemData?.really_word,
-          why_word:     ItemData?.why_word,
-          outside_word: ItemData?.outside_word,
-        })
-      } catch (error) {
-        console.error(error);
-      }
 	}
 
   // returns element
@@ -151,9 +126,9 @@ export const InnerWordItemList: React.FC = () => {
           <Accordion defaultExpanded>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
+              aria-controls='panel1bh-content'
               className={classes.accordion_summary}
-              id="panel1bh-header"
+              id='panel1bh-header'
             >
               <Typography>
                 1. それで？
@@ -162,13 +137,13 @@ export const InnerWordItemList: React.FC = () => {
             <AccordionDetails className={classes.accordion_details}>
               <TextField
                 className={classes.accordion_detail_textfield}
-                id="standard-multiline-flexible"
+                id='standard-multiline-flexible'
                 name='so_word'
                 defaultValue={ItemData?.so_word}
-                placeholder="内なる言葉に「それで？」と質問してみよう"
+                placeholder='内なる言葉に「それで？」と質問してみよう'
                 multiline
                 maxRows={10}
-                variant="standard"
+                variant='standard'
                 onChange={onChangeInnerWord}
                 onBlur={onBlurFunc}
                 InputProps={{ disableUnderline: true }}
@@ -179,9 +154,9 @@ export const InnerWordItemList: React.FC = () => {
           <Accordion defaultExpanded>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
+              aria-controls='panel1bh-content'
               className={classes.accordion_summary}
-              id="panel1bh-header"
+              id='panel1bh-header'
             >
               <Typography>
                 2. 本当に？
@@ -191,13 +166,13 @@ export const InnerWordItemList: React.FC = () => {
               <Box>
                 <TextField
                   className={classes.accordion_detail_textfield}
-                  id="standard-multiline-flexible"
+                  id='standard-multiline-flexible'
                   name='really_word'
                   defaultValue={ItemData?.really_word}
-                  placeholder="内なる言葉に「本当に？」と質問してみよう"
+                  placeholder='内なる言葉に「本当に？」と質問してみよう'
                   multiline
                   maxRows={10}
-                  variant="standard"
+                  variant='standard'
                   onChange={onChangeInnerWord}
                   onBlur={onBlurFunc}
                   InputProps={{ disableUnderline: true }}
@@ -209,9 +184,9 @@ export const InnerWordItemList: React.FC = () => {
           <Accordion defaultExpanded>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
+              aria-controls='panel1bh-content'
               className={classes.accordion_summary}
-              id="panel1bh-header"
+              id='panel1bh-header'
             >
               <Typography>
                 3. なぜ？
@@ -220,13 +195,13 @@ export const InnerWordItemList: React.FC = () => {
             <AccordionDetails className={classes.accordion_details}>
               <TextField
                 className={classes.accordion_detail_textfield}
-                id="standard-multiline-flexible"
+                id='standard-multiline-flexible'
                 name='why_word'
                 defaultValue={ItemData?.why_word}
-                placeholder="内なる言葉に「なぜ？」と質問してみよう"
+                placeholder='内なる言葉に「なぜ？」と質問してみよう'
                 multiline
                 maxRows={10}
-                variant="standard"
+                variant='standard'
                 onChange={onChangeInnerWord}
                 onBlur={onBlurFunc}
                 InputProps={{ disableUnderline: true }}
@@ -237,9 +212,9 @@ export const InnerWordItemList: React.FC = () => {
           <Accordion defaultExpanded>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1bh-content"
+              aria-controls='panel1bh-content'
               className={classes.accordion_summary}
-              id="panel1bh-header"
+              id='panel1bh-header'
             >
               <Typography>
                 ■ 外に向かう言葉を作ってみよう
@@ -248,13 +223,13 @@ export const InnerWordItemList: React.FC = () => {
             <AccordionDetails className={classes.accordion_details}>
               <TextField
                 className={classes.accordion_detail_textfield}
-                id="standard-multiline-flexible"
+                id='standard-multiline-flexible'
                 name='outside_word'
                 defaultValue={ItemData?.outside_word}
-                placeholder="「1, 2, 3」の言葉を使い外に向かう言葉を作ってみよう"
+                placeholder='「1, 2, 3」の言葉を使い外に向かう言葉を作ってみよう'
                 multiline
                 maxRows={15}
-                variant="standard"
+                variant='standard'
                 onChange={onChangeInnerWord}
                 onBlur={onBlurFunc}
                 InputProps={{ disableUnderline: true }}

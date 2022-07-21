@@ -1,10 +1,12 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useState, useContext } from 'react';
 
-import axios from 'axios';
-
 /* contexts */
 import { InnerWordContexts } from '../contexts/InnerWordContext';
+
+/* lib */
+import { deleteInnerWord } from '../lib/Api';
+
 /* type */
 import { InnerWord } from '../type/InnerWord';
 
@@ -63,6 +65,17 @@ export const InnerWordListMenu = (props: any) => {
   const menuOpen = Boolean(anchorEl);
   const classes  = useStyles();
 
+  /* Api logic */
+  // Delete InnerWord method
+  const onDeleteInnerWord = async(data: InnerWord, index: number) => {
+    // DB
+    await deleteInnerWord(data.id);
+
+    const newInnerWords = innerWords.filter((innerWord, childindex) => childindex !== index);
+    setInnerWords(newInnerWords);
+    setAnchorEl(null);
+  }
+
   // menu open & close method
   const handleClickMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -70,21 +83,6 @@ export const InnerWordListMenu = (props: any) => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-
-  // Delete InnerWord method
-  const onDeleteInnerWord = async(data: InnerWord, index: number) => {
-    try {
-      // DB
-      await axios.delete(`//localhost/api/inner_words/delete/${data.id}`)
-      // delete theme context {id} object
-      const newInnerWords = innerWords.filter((innerWord, childindex) => childindex !== index);
-      setInnerWords(newInnerWords);
-    } catch (error) {
-      console.error(error);
-    }
-    console.log(12345)
-    setAnchorEl(null);
-  }
 
   const handleClickDialog = (data: InnerWord, index: number) => {
     console.log(data)
@@ -130,11 +128,11 @@ export const InnerWordListMenu = (props: any) => {
         <Dialog
           open={openDialog}
           onClose={handleCloseDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
         >
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <DialogContentText id='alert-dialog-description'>
               {'この内なる言葉には、なかみがあります。削除しますか？'}
             </DialogContentText>
           </DialogContent>
