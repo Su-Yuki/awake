@@ -7,13 +7,13 @@ import { InnerWord, InnerItemPram } from '../type/InnerWord';
 
 // ---[ process ]---------------------------------------------------------------
 // const URL = `https://`;
-// const URL = `http://localhost/`;
+const URL = `http://localhost`;
 
 /* --- Related user --------------------------------------------------------- */
 // 既にログイン済みの場合のユーザ情報を取得
 export const getUser = async() => {
   try {
-    const user = await axios.get(`api/user`);
+    const user = await axios.get(`${URL}/api/user`);
     return user.data;
   } catch (error) {
     console.log('Error getUser');
@@ -26,7 +26,7 @@ export const getUser = async() => {
 // テーマリストの取得
 export const listTheme = async() => {
   try {
-    const theme = await axios.get(`api/thema`)
+    const theme = await axios.get(`${URL}/api/thema`)
     return theme.data;
   } catch (error) {
     console.log('Error listTheme');
@@ -38,7 +38,7 @@ export const listTheme = async() => {
 export const storeTheme = async(userId: number | string | undefined, themaName: string) => {
   try {
     const theme = await axios
-      .post('api/thema/store', {
+      .post(`${URL}/api/thema/store`, {
         user_id: userId,
         thema:   themaName
       })
@@ -59,7 +59,7 @@ export const storeTheme = async(userId: number | string | undefined, themaName: 
 export const updateTheme = async(themaId: number, thema: string) => {
   try {
     await axios
-      .put(`api/thema/update/${themaId}`, {
+      .put(`${URL}/api/thema/update/${themaId}`, {
         thema: thema
       })
   } catch (error) {
@@ -71,7 +71,7 @@ export const updateTheme = async(themaId: number, thema: string) => {
 // テーマの削除
 export const deleteTheme = async(themaId: number) => {
   try {
-    await axios.delete(`api/thema/delete/${themaId}`);
+    await axios.delete(`${URL}/api/thema/delete/${themaId}`);
   } catch (error) {
     console.log('Error deleteTheme');
     console.error(error);
@@ -83,7 +83,7 @@ export const deleteTheme = async(themaId: number) => {
 // InnerWordの取得
 export const listInnerWord = async(themaId: number | string | undefined) => {
   try {
-    const innerWord = await axios.get(`//localhost/api/inner_words?thema_id=${themaId}`)
+    const innerWord = await axios.get(`${URL}/api/inner_words?thema_id=${themaId}`)
     return innerWord.data.inner_word;
   } catch (error) {
     console.log('Error listInnerWord');
@@ -94,7 +94,7 @@ export const listInnerWord = async(themaId: number | string | undefined) => {
 // InnerWordItemの取得
 export const listInnerWordItem = async(innerWordID: number | string | undefined) => {
   try {
-    const innerWord = await axios.get(`//localhost/api/inner_words/show?inner_word_id=${innerWordID}`)
+    const innerWord = await axios.get(`${URL}/api/inner_words/show?inner_word_id=${innerWordID}`)
     return innerWord.data.inner_word;
   } catch (error) {
     console.log('Error listInnerWord');
@@ -106,7 +106,7 @@ export const listInnerWordItem = async(innerWordID: number | string | undefined)
 export const storeInnerWord = async(themaId: number | string | undefined, innerWordName: string) => {
   try {
     const innerWord = await axios
-      .post('//localhost/api/inner_words/store', {
+      .post(`${URL}/api/inner_words/store`, {
         thema_id:   themaId,
         inner_word: innerWordName
       })
@@ -130,7 +130,7 @@ export const updateInnerWord = async(
 ) => {
   try {
     await axios
-      .put(`//localhost/api/inner_words/update_title/${themaId}`, {
+      .put(`${URL}/api/inner_words/update_title/${themaId}`, {
         inner_word: innerWord
       })
   } catch (error) {
@@ -146,7 +146,7 @@ export const updateInnerWordItem = async(
 ) => {
   try {
     await axios
-      .put(`//localhost/api/inner_words/update_item/${innerWordID}`, {
+      .put(`${URL}/api/inner_words/update_item/${innerWordID}`, {
         so_word:      ItemData?.so_word,
         really_word:  ItemData?.really_word,
         why_word:     ItemData?.why_word,
@@ -161,7 +161,7 @@ export const updateInnerWordItem = async(
 // テーマの削除
 export const deleteInnerWord = async(innerWordID: number) => {
   try {
-    await axios.delete(`//localhost/api/inner_words/delete/${innerWordID}`);
+    await axios.delete(`${URL}/api/inner_words/delete/${innerWordID}`);
   } catch (error) {
     console.log('Error deleteTheme');
     console.error(error);
