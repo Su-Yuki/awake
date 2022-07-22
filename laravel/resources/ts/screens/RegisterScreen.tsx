@@ -1,11 +1,12 @@
 // ---[ import ]----------------------------------------------------------------
-import React, { useEffect, useState, useContext } from 'react';
-
+import React, { useState, useContext } from 'react';
+import { useNavigate, Link } from "react-router-dom";
 
 import axios from 'axios';
 
 /* contexts */
 import { UserContext } from '../contexts/UserContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 /* type */
 import { User } from '../type/User';
@@ -77,6 +78,10 @@ const useStyles = makeStyles((theme) =>
       color:                 '#a94442',
       backgroundColor:       '#ebccd1',
 		},
+    nav_link: {
+      textDecoration:        'none',
+      color:                 'blue',
+    }
   })
 );
 
@@ -89,11 +94,13 @@ type RegisterPram = {
 
 // ---[ process ]---------------------------------------------------------------
 export const RegisterScreen = () => {
-  const classes = useStyles();
+  const classes  = useStyles();
+  const navigate = useNavigate();
 
   // state
-  const {user, setUser}                 = useContext(UserContext);
-  const [formData, setFormData]         = useState<RegisterPram>({
+  const {user, setUser}         = useContext(UserContext);
+  const {auth, setAuth}         = useContext(AuthContext);
+  const [formData, setFormData] = useState<RegisterPram>({
     registerName: '',
     email: '',
     password: ''
@@ -120,10 +127,12 @@ export const RegisterScreen = () => {
                   setFormData({registerName: '', email: '', password: ''});
                   // Set user
                   setUser({userId: res.data.userId, name: res.data.userName});
-                  // local strage
-                  localStorage.setItem('loginUser', JSON.stringify(
-                    {userId: res.data.userId, name: res.data.userName}
-                  ));
+                  // Set local strage(Autologin)
+                  localStorage.setItem('login_check', 'true');
+                  // redirect
+                  navigate('/', { replace: true });
+                  // Set auth
+                  setAuth(true);
                 } else {
                   setErrorMessage(res.data.message)
                 }
@@ -219,7 +228,9 @@ export const RegisterScreen = () => {
             className={classes.container_item_navigate}
             component='p'
           >
-            アカウントをお持ちの方はログインしてください
+            アカウントをお持ちの方は
+            <Link className={classes.nav_link} to="/login">ログイン</Link>
+            してください
           </Box>
         </Box>
       </Container>

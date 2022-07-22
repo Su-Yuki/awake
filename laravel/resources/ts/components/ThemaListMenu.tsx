@@ -1,13 +1,14 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useState, useContext } from 'react';
 
-import axios from 'axios';
-
 /* contexts */
 import { ThemaContexts } from '../contexts/ThemaContext';
 
 /* type */
 import { Thema } from '../type/Thema';
+
+/* lib */
+import { deleteTheme } from '../lib/Api';
 
 /* material-ui */
 import { createStyles, makeStyles } from '@material-ui/core/styles';
@@ -74,15 +75,12 @@ export const ThemaListMenu = (props: any) => {
 
   // Delete thema method
   const onDeleteThema = async(data: Thema, index: number) => {
-    try {
-      // DB
-      await axios.delete(`//localhost/api/thema/delete/${data.id}`)
-      // delete theme context {id} object
-      const newThemas = themas.filter((thema, childindex) => childindex !== index);
-      setThemas(newThemas);
-    } catch (error) {
-      console.error(error);
-    }
+    // DB
+    await deleteTheme(data.id);
+
+    // delete theme context {id} object
+    const newThemas = themas.filter((thema, childindex) => childindex !== index);
+    setThemas(newThemas);
     setAnchorEl(null);
   }
 

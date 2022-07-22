@@ -1,15 +1,15 @@
 // ---[ import ]----------------------------------------------------------------
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
-
 /* contexts */
-import { UserContext } from '../contexts/UserContext';
 import { InnerWordContexts } from '../contexts/InnerWordContext';
 
 /* components */
 import { InnerWordListMenu } from '../components/InnerWordListMenu';
+
+/* lib */
+import { listInnerWord, updateInnerWord } from '../lib/Api';
 
 /* type */
 import { InnerWord } from '../type/InnerWord';
@@ -110,15 +110,13 @@ const useStyles = makeStyles((theme) =>
 
 // ---[ process ]---------------------------------------------------------------
 export const InnerWordList: React.FC = () => {
-  // style
+  // construct
   const classes  = useStyles();
   const navigate = useNavigate();
+  const themaId  = useParams().thema_id;
 
-  // stateを宣言
-  const {user, setUser}             = useContext(UserContext);
+  // state
   const {innerWords, setInnerWords} = useContext(InnerWordContexts);
-
-  const themaId = useParams().thema_id;
 
   // 画面マウント時
   useEffect(() => {
@@ -127,20 +125,19 @@ export const InnerWordList: React.FC = () => {
 
   // 内なる言葉を取得
   const fetchInnerWords = async () => {
-    try {
-      const innerWordList = await axios.get(
-        `//localhost/api/inner_words?thema_id=${themaId}`
-      )
-      setInnerWords(innerWordList.data.inner_word);
-    } catch (error) {
-      console.error(error);
-    }
+    const listInnerWordDocRef = await listInnerWord(themaId);
+    setInnerWords(listInnerWordDocRef);
   };
+
+  // フォーカスが外れた時の処理（update）
+	const onBlurFunc = async(themaId: number, innerWord: string) => {
+    await updateInnerWord(themaId, innerWord);
+	}
 
   // 内なる言葉の変更処理
 	const onChangeInnerWord = (
     input: React.ChangeEvent<any>,
-    index: any
+    index: number
   ): void => {
     setInnerWords(
       innerWords.map((obj, objIndex) => (
@@ -149,28 +146,14 @@ export const InnerWordList: React.FC = () => {
           : obj
       ))
     )
-    // feature update api logic
-	}
-
-  // フォーカスが外れた時の処理（update）
-	const onBlurFunc = async(id: number, inner_word: string) => {
-    try {
-      await axios
-        .put(`//localhost/api/inner_words/update_title/${id}`, {
-          inner_word: inner_word
-        })
-      } catch (error) {
-        console.error(error);
-      }
 	}
 
   // 内なる言葉の詳細へ
   const prevInnerWordDetail = (
     innerWordID: number
-  ) => {
+  ): void => {
     navigate(`/inner_word/${themaId}/item/${innerWordID}`);
   }
-
 
   // returns element
   return (

@@ -1,12 +1,13 @@
 // ---[ import ]----------------------------------------------------------------
 import React, { useEffect, useState, useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 import axios from 'axios';
 
 /* contexts */
 import { UserContext } from '../contexts/UserContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 /* type */
 import { User } from '../type/User';
@@ -77,6 +78,10 @@ const useStyles = makeStyles((theme) =>
       color:                 '#a94442',
       backgroundColor:       '#ebccd1',
 		},
+    nav_link: {
+      textDecoration:        'none',
+      color:                 'blue',
+    }
   })
 );
 
@@ -93,6 +98,7 @@ export const LoginScreen = () => {
 
   // state
   const {user, setUser}                 = useContext(UserContext);
+  const {auth, setAuth}                 = useContext(AuthContext);
   const [formData, setFormData]         = useState<LoginPram>({email: '', password: ''});
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
 
@@ -109,20 +115,21 @@ export const LoginScreen = () => {
               setFormData({email: '', password: ''});
               // Set user
               setUser({userId: res.data.userId, name: res.data.userName});
-              // local strage
-              localStorage.setItem('loginUser', JSON.stringify(
-                {userId: res.data.userId, name: res.data.userName}
-              ));
+              // Set local strage(Autologin)
+              localStorage.setItem('login_check', 'true');
+              // redirect
+              navigate('/', { replace: true });
+              // Set auth
+              setAuth(true);
             } else {
               setErrorMessage(res.data.message)
             }
           })
           .catch(error => {
             console.log(error);
-            setErrorMessage(['ログインに失敗しました'])
+            setErrorMessage(['ログインに失敗しました']);
           });
         })
-      navigate('/');
     } catch (error) {
       console.error(error);
     }
@@ -193,7 +200,8 @@ export const LoginScreen = () => {
             className={classes.container_item_navigate}
             component='p'
           >
-            アカウントをお持ちでない方は登録
+            アカウントをお持ちでない方は
+            <Link className={classes.nav_link} to="/register">登録</Link>
           </Box>
         </Box>
       </Container>

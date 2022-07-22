@@ -10,6 +10,9 @@ import axios from 'axios';
 /* contexts */
 import { ThemaContexts } from '../contexts/ThemaContext';
 
+/* lib */
+import { storeTheme } from '../lib/Api';
+
 /* types */
 import { Thema } from '../type/Thema';
 
@@ -43,9 +46,6 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-// ---[ types ]-----------------------------------------------------------------
-
-
 // ---[ process ]---------------------------------------------------------------
 export const ThemaForm: React.FC = () => {
 	const classes = useStyles();
@@ -61,50 +61,30 @@ export const ThemaForm: React.FC = () => {
 			return null;
 		}
 
-		try {
-      await axios
-        .post('api/thema/store', {
-          user_id: user?.userId,
-          thema:   themaName
-        })
-        .then((res) => {
-          const thema = {
-            id:               res.data.thema.id,
-            user_id:          Number(res.data.thema.user_id),
-            thema:            res.data.thema.thema,
-            inner_word_count: 0,
-            updated_at:       res.data.thema.updated_at,
-            created_at:       res.data.thema.created_at,
-          } as Thema;
-          setThemas([thema, ...themas]);
+    const storeThemeDocRef = await storeTheme(user?.userId, themaName);
+    const thema = {
+      id:               storeThemeDocRef.id,
+      user_id:          Number(storeThemeDocRef.user_id),
+      thema:            storeThemeDocRef.thema,
+      inner_word_count: 0,
+      updated_at:       storeThemeDocRef.updated_at,
+      created_at:       storeThemeDocRef.created_at,
+    } as Thema;
 
-          // 初期化
-          setThemaName('');
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      } catch (error) {
-        console.error(error);
-      }
+    setThemas([thema, ...themas]);
+    setThemaName('');
 	}
 
-	// Thema input type onChange logic
+  // textField.stateのアップデート
 	const inputChangeForm = (input: React.ChangeEvent<any>): void => {
 		const value = input.target.value;
 
-    // setState
     setThemaName(value);
-	}
-
-	// action check(test)
-	const aaa = () => {
-		alert("aaa")
 	}
 
 	return (
 		<>
-      <form className={classes.container} method='post'>
+      <form className={classes.container}>
         <TextField
           className={classes.input_thema}
           label='テーマを入力してください'
@@ -112,6 +92,13 @@ export const ThemaForm: React.FC = () => {
           onChange={inputChangeForm}
           value={themaName}
           name='thema'
+          onKeyPress={e => {
+            if (e.key === 'Enter') {
+              // エンターキー押下時の処理
+              themaPost()
+              e.preventDefault();
+            }
+          }}
         />
         <Box className={classes.container_innner_bottom}>
         <Button
